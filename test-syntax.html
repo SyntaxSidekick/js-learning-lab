@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Syntax Explanations</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .code { background: #f5f5f5; padding: 10px; border-radius: 5px; font-family: monospace; }
+        .explanation { background: #e3f2fd; padding: 10px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Syntax Explanations Test</h1>
+    
+    <h2>Example: Object Creation and Property Access</h2>
+    
+    <div class="code">const obj = { x: 1 };</div>
+    <div class="explanation">
+        <strong>📦 Creates an object called "obj".</strong><br>
+        • The curly braces { } create an object<br>
+        • "x" is the property name, 1 is its value<br>
+        • This means obj.x will equal 1
+    </div>
+    
+    <div class="code">const obj2 = obj;</div>
+    <div class="explanation">
+        <strong>🔗 Creates a new variable "obj2" that points to the same object as "obj".</strong><br>
+        • They both reference the same memory location<br>
+        • Changes to one affect the other!
+    </div>
+    
+    <div class="code">obj.x = 2;</div>
+    <div class="explanation">
+        <strong>✏️ Changes the "x" property of object "obj" to 2.</strong><br>
+        • The dot (.) is how we access object properties<br>
+        • Since objects are referenced, this change affects all variables pointing to the same object!
+    </div>
+    
+    <div class="code">console.log(obj2.x);</div>
+    <div class="explanation">
+        <strong>🖨️ Prints the value of property "x" from object "obj2".</strong><br>
+        • The dot (.) accesses the property<br>
+        • This will print whatever value is currently stored in obj2.x<br>
+        • Result: 2 (because obj.x was changed to 2, and obj2 points to the same object)
+    </div>
+
+    <script>
+        // Let's actually run the code to verify
+        const obj = { x: 1 };
+        const obj2 = obj;
+        obj.x = 2;
+        console.log('obj2.x =', obj2.x); // Should print 2
+        
+        document.write('<h3>Actual Result: obj2.x = ' + obj2.x + '</h3>');
+    </script>
+</body>
+</html>

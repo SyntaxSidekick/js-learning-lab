@@ -1,0 +1,904 @@
+{
+  "meta": {
+    "version": "1.0",
+    "lastUpdated": "2025-10-31",
+    "totalQuestions": 40,
+    "categories": 15,
+    "difficultyLevels": ["beginner", "intermediate", "advanced"],
+    "questionTypes": ["output", "concept", "debugging", "completion"]
+  },
+  "categories": [
+    {
+      "id": "variables",
+      "name": "Variables & Data Types",
+      "description": "Variable declarations, hoisting, scoping, and data types",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "functions",
+      "name": "Functions",
+      "description": "Function declarations, expressions, arrow functions, and scope",
+      "color": "#2196F3"
+    },
+    {
+      "id": "objects",
+      "name": "Objects & Arrays",
+      "description": "Object manipulation, array methods, and reference types",
+      "color": "#FF9800"
+    },
+    {
+      "id": "closures",
+      "name": "Closures",
+      "description": "Closure concepts, lexical scoping, and practical applications",
+      "color": "#9C27B0"
+    },
+    {
+      "id": "promises",
+      "name": "Promises & Async",
+      "description": "Asynchronous JavaScript, promises, async/await, and event loop",
+      "color": "#F44336"
+    },
+    {
+      "id": "prototypes",
+      "name": "Prototypes & Classes",
+      "description": "Prototype chain, inheritance, and ES6 classes",
+      "color": "#607D8B"
+    },
+    {
+      "id": "dom",
+      "name": "DOM Manipulation",
+      "description": "Document Object Model, events, and browser APIs",
+      "color": "#795548"
+    },
+    {
+      "id": "es6",
+      "name": "ES6+ Features",
+      "description": "Modern JavaScript features, destructuring, modules, and more",
+      "color": "#3F51B5"
+    },
+    {
+      "id": "operators",
+      "name": "Operators & Expressions",
+      "description": "Arithmetic, logical, comparison, and special operators",
+      "color": "#009688"
+    },
+    {
+      "id": "loops",
+      "name": "Loops & Iteration",
+      "description": "For loops, while loops, forEach, map, filter, and reduce",
+      "color": "#CDDC39"
+    },
+    {
+      "id": "strings",
+      "name": "Strings & RegEx",
+      "description": "String manipulation, template literals, and regular expressions",
+      "color": "#E91E63"
+    },
+    {
+      "id": "error-handling",
+      "name": "Error Handling",
+      "description": "Try-catch, error types, and debugging techniques",
+      "color": "#FF5722"
+    },
+    {
+      "id": "performance",
+      "name": "Performance & Optimization",
+      "description": "Memory management, performance optimization, and best practices",
+      "color": "#8BC34A"
+    },
+    {
+      "id": "testing",
+      "name": "Testing & Debugging",
+      "description": "Unit testing, debugging techniques, and code quality",
+      "color": "#00BCD4"
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced Concepts",
+      "description": "Complex JavaScript patterns, algorithms, and advanced techniques",
+      "color": "#6200EA"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "category": "variables",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Variable Hoisting",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(x);\nvar x = 5;\nconsole.log(x);",
+      "options": [
+        "undefined, 5",
+        "5, 5",
+        "ReferenceError",
+        "undefined, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Due to hoisting, 'var x' is moved to the top but not its assignment. So x is undefined initially, then 5 after assignment.",
+      "hints": ["Think about how var declarations are hoisted", "Assignment happens where you write it"],
+      "tags": ["hoisting", "var", "undefined"],
+      "relatedConcepts": ["Variable declarations", "Hoisting", "Temporal dead zone"]
+    },
+    {
+      "id": 2,
+      "category": "variables",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Let vs Var in Loops",
+      "question": "What will be the output of the following code?",
+      "code": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}\n\nfor (let j = 0; j < 3; j++) {\n  setTimeout(() => console.log(j), 0);\n}",
+      "options": [
+        "3, 3, 3, 0, 1, 2",
+        "0, 1, 2, 0, 1, 2",
+        "0, 1, 2, 3, 3, 3",
+        "3, 3, 3, 3, 3, 3"
+      ],
+      "correctAnswer": 0,
+      "explanation": "With 'var', there's one variable shared across iterations. With 'let', each iteration gets its own variable due to block scoping.",
+      "hints": ["Consider the difference between var and let scoping", "Think about when setTimeout callbacks execute"],
+      "tags": ["var", "let", "setTimeout", "scoping"],
+      "relatedConcepts": ["Block scoping", "Function scoping", "Event loop"]
+    },
+    {
+      "id": 3,
+      "category": "variables",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Temporal Dead Zone",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(x);\nlet x = 5;",
+      "options": [
+        "undefined",
+        "5",
+        "ReferenceError",
+        "null"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Variables declared with let/const are hoisted but cannot be accessed before declaration due to temporal dead zone.",
+      "hints": ["let/const have different hoisting behavior than var", "Temporal dead zone prevents access before declaration"],
+      "tags": ["temporal-dead-zone", "let", "hoisting"],
+      "relatedConcepts": ["Temporal dead zone", "Block scoping", "Hoisting"]
+    },
+    {
+      "id": 4,
+      "category": "functions",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Function Declaration vs Expression",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(foo());\nconsole.log(bar());\n\nfunction foo() {\n  return 'foo';\n}\n\nvar bar = function() {\n  return 'bar';\n};",
+      "options": [
+        "foo, bar",
+        "foo, TypeError",
+        "undefined, bar",
+        "ReferenceError, TypeError"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Function declarations are fully hoisted, but function expressions are not. 'bar' is undefined when called.",
+      "hints": ["Function declarations are hoisted differently than function expressions", "var declarations are hoisted but not their assignments"],
+      "tags": ["hoisting", "function-declaration", "function-expression"],
+      "relatedConcepts": ["Hoisting", "Function types", "Variable declarations"]
+    },
+    {
+      "id": 5,
+      "category": "functions",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Arrow Function This Binding",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = {\n  name: 'Alice',\n  greet: () => {\n    console.log('Hello ' + this.name);\n  }\n};\nobj.greet();",
+      "options": [
+        "Hello Alice",
+        "Hello undefined",
+        "Hello ",
+        "TypeError"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Arrow functions don't have their own 'this' binding. They inherit 'this' from the enclosing scope.",
+      "hints": ["Arrow functions don't bind their own 'this'", "They inherit 'this' from the parent scope"],
+      "tags": ["arrow-functions", "this", "binding"],
+      "relatedConcepts": ["Arrow functions", "This binding", "Lexical this"]
+    },
+    {
+      "id": 6,
+      "category": "functions",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Function Bind Method",
+      "question": "What will be the output of the following code?",
+      "code": "function greet() {\n  console.log('Hello ' + this.name);\n}\n\nconst person = { name: 'Alice' };\nconst boundGreet = greet.bind(person);\nboundGreet();",
+      "options": [
+        "Hello Alice",
+        "Hello undefined",
+        "TypeError",
+        "ReferenceError"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The bind() method creates a new function with 'this' permanently set to the provided value.",
+      "hints": ["bind() creates a new function with fixed 'this'", "The 'this' context is permanently bound"],
+      "tags": ["bind", "this", "method-binding"],
+      "relatedConcepts": ["Function binding", "This context", "Method binding"]
+    },
+    {
+      "id": 7,
+      "category": "objects",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Object Reference",
+      "question": "What will be the output of the following code?",
+      "code": "const obj1 = { a: 1 };\nconst obj2 = obj1;\nobj2.a = 2;\nconsole.log(obj1.a);",
+      "options": [
+        "1",
+        "2",
+        "undefined",
+        "ReferenceError"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Objects are reference types. obj1 and obj2 point to the same object in memory, so modifying obj2 affects obj1.",
+      "hints": ["Objects are passed by reference", "Both variables point to the same memory location"],
+      "tags": ["reference", "objects", "mutation"],
+      "relatedConcepts": ["Reference types", "Object mutation", "Memory management"]
+    },
+    {
+      "id": 8,
+      "category": "objects",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Object Property Access",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { x: 1, y: 2 };\nconsole.log(obj.z);",
+      "options": [
+        "0",
+        "null",
+        "undefined",
+        "ReferenceError"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Accessing a non-existent property of an object returns undefined.",
+      "hints": ["Non-existent properties return a specific value", "No error is thrown for missing properties"],
+      "tags": ["objects", "property-access", "undefined"],
+      "relatedConcepts": ["Object properties", "Property access", "Undefined values"]
+    },
+    {
+      "id": 9,
+      "category": "objects",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Object.freeze() Effect",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { x: 1 };\nObject.freeze(obj);\nobj.x = 2;\nconsole.log(obj.x);",
+      "options": [
+        "1",
+        "2",
+        "undefined",
+        "TypeError"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Object.freeze() prevents modification of existing properties. The assignment fails silently in non-strict mode.",
+      "hints": ["Object.freeze() makes objects immutable", "Failed assignments in non-strict mode fail silently"],
+      "tags": ["Object.freeze", "immutability", "objects"],
+      "relatedConcepts": ["Object.freeze", "Immutability", "Object methods"]
+    },
+    {
+      "id": 10,
+      "category": "closures",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Closure Counter",
+      "question": "What will be the output of the following code?",
+      "code": "function createCounter() {\n  let count = 0;\n  return function() {\n    return ++count;\n  };\n}\n\nconst counter1 = createCounter();\nconst counter2 = createCounter();\nconsole.log(counter1());\nconsole.log(counter1());\nconsole.log(counter2());",
+      "options": [
+        "1, 2, 1",
+        "1, 2, 3",
+        "0, 1, 0",
+        "1, 1, 1"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Each call to createCounter() creates a new closure with its own 'count' variable. counter1 and counter2 have separate counters.",
+      "hints": ["Each function call creates a new execution context", "Closures maintain their own variable environment"],
+      "tags": ["closures", "lexical-scoping", "function-factory"],
+      "relatedConcepts": ["Closures", "Lexical scoping", "Function factories"]
+    },
+    {
+      "id": 11,
+      "category": "closures",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Loop Closure Problem",
+      "question": "What will be the output of the following code?",
+      "code": "for (var i = 0; i < 3; i++) {\n  setTimeout(function() {\n    console.log(i);\n  }, 100);\n}",
+      "options": [
+        "0, 1, 2",
+        "3, 3, 3",
+        "undefined, undefined, undefined",
+        "0, 0, 0"
+      ],
+      "correctAnswer": 1,
+      "explanation": "All setTimeout callbacks share the same variable 'i'. By the time they execute, the loop has finished and i equals 3.",
+      "hints": ["All callbacks reference the same variable", "The loop completes before callbacks execute"],
+      "tags": ["closures", "setTimeout", "var", "loops"],
+      "relatedConcepts": ["Closure scope", "Variable scoping", "Asynchronous execution"]
+    },
+    {
+      "id": 12,
+      "category": "promises",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Promise Chain Order",
+      "question": "What will be the output of the following code?",
+      "code": "console.log('1');\nPromise.resolve().then(() => console.log('2'));\nconsole.log('3');",
+      "options": [
+        "1, 2, 3",
+        "1, 3, 2",
+        "2, 1, 3",
+        "3, 2, 1"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Synchronous code runs first (1, 3), then microtasks like Promise.then() run (2). This is how the event loop works.",
+      "hints": ["Synchronous code executes first", "Promise.then() is a microtask"],
+      "tags": ["promises", "event-loop", "microtasks"],
+      "relatedConcepts": ["Event loop", "Microtasks", "Call stack"]
+    },
+    {
+      "id": 13,
+      "category": "promises",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Promise Constructor Execution",
+      "question": "What will be the output of the following code?",
+      "code": "console.log('start');\n\nnew Promise((resolve) => {\n  console.log('promise');\n  resolve();\n}).then(() => {\n  console.log('then');\n});\n\nconsole.log('end');",
+      "options": [
+        "start, promise, end, then",
+        "start, promise, then, end",
+        "start, end, promise, then",
+        "promise, start, end, then"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Promise constructor executes synchronously, but .then() callback is a microtask that executes after all synchronous code.",
+      "hints": ["Promise constructor runs immediately", ".then() callbacks are microtasks"],
+      "tags": ["promises", "constructor", "microtasks"],
+      "relatedConcepts": ["Promise constructor", "Synchronous execution", "Microtasks"]
+    },
+    {
+      "id": 14,
+      "category": "promises",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Async/Await Execution",
+      "question": "What will be the output of the following code?",
+      "code": "async function test() {\n  console.log('A');\n  await Promise.resolve();\n  console.log('B');\n}\n\nconsole.log('1');\ntest();\nconsole.log('2');",
+      "options": [
+        "1, A, 2, B",
+        "1, A, B, 2",
+        "A, 1, 2, B",
+        "1, 2, A, B"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The async function executes synchronously until 'await', then pauses and returns control to the main thread.",
+      "hints": ["async functions run synchronously until await", "await pauses execution and returns control"],
+      "tags": ["async", "await", "promises"],
+      "relatedConcepts": ["Async functions", "Await operator", "Promise resolution"]
+    },
+    {
+      "id": 15,
+      "category": "prototypes",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Prototype Chain",
+      "question": "What will be the output of the following code?",
+      "code": "function Person(name) {\n  this.name = name;\n}\n\nPerson.prototype.greet = function() {\n  return `Hello, ${this.name}`;\n};\n\nconst john = new Person('John');\nconsole.log(john.greet());\ndelete Person.prototype.greet;\nconsole.log(john.greet());",
+      "options": [
+        "Hello, John, Hello, John",
+        "Hello, John, TypeError",
+        "TypeError, TypeError",
+        "Hello, John, undefined"
+      ],
+      "correctAnswer": 1,
+      "explanation": "First call works because greet exists on prototype. After deleting it, john.greet() throws TypeError because greet is no longer found in the prototype chain.",
+      "hints": ["Methods on prototype can be deleted", "Deleting prototype methods affects all instances"],
+      "tags": ["prototype", "delete", "constructor"],
+      "relatedConcepts": ["Prototype chain", "Constructor functions", "Method deletion"]
+    },
+    {
+      "id": 16,
+      "category": "prototypes",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Prototype Property",
+      "question": "What will be the output of the following code?",
+      "code": "function Animal() {}\nAnimal.prototype.sound = 'generic';\n\nconst dog = new Animal();\ndog.sound = 'bark';\n\nconsole.log(dog.sound);\ndelete dog.sound;\nconsole.log(dog.sound);",
+      "options": [
+        "bark, bark",
+        "bark, generic",
+        "generic, generic",
+        "bark, undefined"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Instance property shadows prototype property. After deleting instance property, prototype property becomes accessible again.",
+      "hints": ["Instance properties shadow prototype properties", "delete removes only own properties"],
+      "tags": ["prototype", "property-shadowing", "delete"],
+      "relatedConcepts": ["Property shadowing", "Prototype lookup", "Property deletion"]
+    },
+    {
+      "id": 17,
+      "category": "es6",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Destructuring Assignment",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { a: 1, b: 2, c: 3 };\nconst { a, ...rest } = obj;\nconsole.log(a);\nconsole.log(rest);",
+      "options": [
+        "1, { b: 2, c: 3 }",
+        "{ a: 1 }, { b: 2, c: 3 }",
+        "1, { a: 1, b: 2, c: 3 }",
+        "undefined, { b: 2, c: 3 }"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Destructuring extracts 'a' as a variable with value 1, and rest operator collects remaining properties into a new object.",
+      "hints": ["Destructuring extracts individual properties", "Rest operator collects remaining properties"],
+      "tags": ["destructuring", "rest-operator", "objects"],
+      "relatedConcepts": ["Destructuring assignment", "Rest/spread operators", "Object manipulation"]
+    },
+    {
+      "id": 18,
+      "category": "es6",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Template Literals",
+      "question": "What will be the output of the following code?",
+      "code": "const name = 'World';\nconst message = `Hello ${name}!`;\nconsole.log(message);",
+      "options": [
+        "Hello ${name}!",
+        "Hello World!",
+        "Hello undefined!",
+        "SyntaxError"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Template literals (backticks) allow variable interpolation using ${} syntax.",
+      "hints": ["Template literals use backticks", "${} allows variable interpolation"],
+      "tags": ["template-literals", "interpolation", "es6"],
+      "relatedConcepts": ["Template literals", "String interpolation", "ES6 features"]
+    },
+    {
+      "id": 19,
+      "category": "es6",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Default Parameters",
+      "question": "What will be the output of the following code?",
+      "code": "function greet(name = 'Anonymous') {\n  console.log(`Hello ${name}`);\n}\n\ngreet();\ngreet('Alice');",
+      "options": [
+        "Hello undefined, Hello Alice",
+        "Hello Anonymous, Hello Alice",
+        "Hello , Hello Alice",
+        "Error, Hello Alice"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Default parameters are used when no argument is passed or undefined is passed explicitly.",
+      "hints": ["Default parameters activate when no argument is provided", "They also activate for undefined"],
+      "tags": ["default-parameters", "functions", "es6"],
+      "relatedConcepts": ["Default parameters", "Function parameters", "ES6 functions"]
+    },
+    {
+      "id": 20,
+      "category": "operators",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Type Coercion",
+      "question": "What will be the output of the following code?",
+      "code": "console.log('5' + 3);\nconsole.log('5' - 3);\nconsole.log('5' * 3);",
+      "options": [
+        "53, 2, 15",
+        "8, 2, 15",
+        "53, NaN, NaN",
+        "8, 8, 8"
+      ],
+      "correctAnswer": 0,
+      "explanation": "'+' with strings does concatenation (53), while '-' and '*' convert strings to numbers for arithmetic (2, 15).",
+      "hints": ["+ operator behaves differently with strings", "Other arithmetic operators convert strings to numbers"],
+      "tags": ["type-coercion", "operators", "strings"],
+      "relatedConcepts": ["Type coercion", "Operator precedence", "String conversion"]
+    },
+    {
+      "id": 21,
+      "category": "operators",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Equality Operators",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(1 == '1');\nconsole.log(1 === '1');\nconsole.log(null == undefined);\nconsole.log(null === undefined);",
+      "options": [
+        "true, true, true, true",
+        "true, false, true, false",
+        "false, false, false, false",
+        "true, true, false, false"
+      ],
+      "correctAnswer": 1,
+      "explanation": "== performs type coercion, === does strict comparison. null == undefined is a special case in JavaScript.",
+      "hints": ["== allows type coercion", "=== requires same type and value", "null and undefined are special case"],
+      "tags": ["equality", "comparison", "type-coercion"],
+      "relatedConcepts": ["Equality operators", "Type coercion", "Strict comparison"]
+    },
+    {
+      "id": 22,
+      "category": "loops",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Map vs ForEach",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\nconst result1 = arr.map(x => x * 2);\nconst result2 = arr.forEach(x => x * 2);\nconsole.log(result1);\nconsole.log(result2);",
+      "options": [
+        "[2, 4, 6], [2, 4, 6]",
+        "[2, 4, 6], undefined",
+        "undefined, [2, 4, 6]",
+        "[1, 2, 3], [1, 2, 3]"
+      ],
+      "correctAnswer": 1,
+      "explanation": "map() returns a new array with transformed elements. forEach() returns undefined and is used for side effects only.",
+      "hints": ["map() returns a new array", "forEach() returns undefined"],
+      "tags": ["map", "forEach", "array-methods"],
+      "relatedConcepts": ["Array methods", "Functional programming", "Return values"]
+    },
+    {
+      "id": 23,
+      "category": "loops",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Array Length Modification",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\narr.length = 1;\nconsole.log(arr);",
+      "options": [
+        "[1, 2, 3]",
+        "[1]",
+        "[1, undefined, undefined]",
+        "Error"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Setting array length to a smaller value truncates the array, removing elements beyond that index.",
+      "hints": ["Array length can be modified", "Reducing length removes elements"],
+      "tags": ["arrays", "length", "truncation"],
+      "relatedConcepts": ["Array length", "Array mutation", "Array methods"]
+    },
+    {
+      "id": 24,
+      "category": "loops",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Filter Method",
+      "question": "What will be the output of the following code?",
+      "code": "const numbers = [1, 2, 3, 4, 5];\nconst evens = numbers.filter(n => n % 2 === 0);\nconsole.log(evens);\nconsole.log(numbers);",
+      "options": [
+        "[2, 4], [1, 3, 5]",
+        "[2, 4], [1, 2, 3, 4, 5]",
+        "[1, 3, 5], [2, 4]",
+        "[2, 4], []"
+      ],
+      "correctAnswer": 1,
+      "explanation": "filter() creates a new array with elements that pass the test. The original array remains unchanged.",
+      "hints": ["filter() creates a new array", "Original array is not modified"],
+      "tags": ["filter", "array-methods", "immutability"],
+      "relatedConcepts": ["Array filter", "Array methods", "Immutable operations"]
+    },
+    {
+      "id": 25,
+      "category": "strings",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "String Methods",
+      "question": "What will be the output of the following code?",
+      "code": "const str = 'Hello World';\nconsole.log(str.toLowerCase());\nconsole.log(str);",
+      "options": [
+        "hello world, hello world",
+        "hello world, Hello World",
+        "Hello World, Hello World",
+        "HELLO WORLD, Hello World"
+      ],
+      "correctAnswer": 1,
+      "explanation": "String methods like toLowerCase() return a new string and don't modify the original string.",
+      "hints": ["Strings are immutable in JavaScript", "String methods return new strings"],
+      "tags": ["strings", "immutability", "methods"],
+      "relatedConcepts": ["String immutability", "String methods", "Primitive types"]
+    },
+    {
+      "id": 26,
+      "category": "strings",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "String Indexing",
+      "question": "What will be the output of the following code?",
+      "code": "const str = 'JavaScript';\nconsole.log(str[0]);\nconsole.log(str[10]);\nconsole.log(str[-1]);",
+      "options": [
+        "J, undefined, undefined",
+        "J, undefined, t",
+        "J, , undefined",
+        "J, null, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "String indexing returns undefined for out-of-bounds positive indices and negative indices (not supported like in Python).",
+      "hints": ["Strings can be indexed like arrays", "Out-of-bounds access returns undefined", "Negative indexing is not supported"],
+      "tags": ["strings", "indexing", "undefined"],
+      "relatedConcepts": ["String indexing", "Array-like behavior", "Undefined access"]
+    },
+    {
+      "id": 27,
+      "category": "error-handling",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Try-Catch Block",
+      "question": "What will be the output of the following code?",
+      "code": "try {\n  console.log('start');\n  throw new Error('oops');\n  console.log('end');\n} catch (e) {\n  console.log('caught');\n}\nconsole.log('after');",
+      "options": [
+        "start, end, caught, after",
+        "start, caught, after",
+        "start, caught",
+        "start, end, after"
+      ],
+      "correctAnswer": 1,
+      "explanation": "When an error is thrown, execution immediately jumps to the catch block, skipping remaining code in try block.",
+      "hints": ["throw immediately transfers control to catch", "Code after throw in try block is not executed"],
+      "tags": ["try-catch", "error-handling", "control-flow"],
+      "relatedConcepts": ["Exception handling", "Control flow", "Error throwing"]
+    },
+    {
+      "id": 28,
+      "category": "error-handling",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Finally Block",
+      "question": "What will be the output of the following code?",
+      "code": "function test() {\n  try {\n    return 'try';\n  } catch (e) {\n    return 'catch';\n  } finally {\n    return 'finally';\n  }\n}\n\nconsole.log(test());",
+      "options": [
+        "try",
+        "catch",
+        "finally",
+        "undefined"
+      ],
+      "correctAnswer": 2,
+      "explanation": "finally block always executes and can override return values from try/catch blocks.",
+      "hints": ["finally always executes", "finally can override return values"],
+      "tags": ["finally", "return", "try-catch"],
+      "relatedConcepts": ["Finally block", "Return override", "Exception handling"]
+    },
+    {
+      "id": 29,
+      "category": "performance",
+      "difficulty": "intermediate",
+      "type": "concept",
+      "title": "Memory Leaks",
+      "question": "Which of the following can cause memory leaks in JavaScript?",
+      "code": "",
+      "options": [
+        "Global variables",
+        "Detached DOM nodes",
+        "Circular references",
+        "All of the above"
+      ],
+      "correctAnswer": 3,
+      "explanation": "All mentioned items can cause memory leaks: global variables persist, detached DOM nodes aren't garbage collected, and circular references prevent cleanup.",
+      "hints": ["Think about what prevents garbage collection", "Consider references that persist"],
+      "tags": ["memory-leaks", "garbage-collection", "performance"],
+      "relatedConcepts": ["Memory management", "Garbage collection", "Performance optimization"]
+    },
+    {
+      "id": 30,
+      "category": "performance",
+      "difficulty": "advanced",
+      "type": "concept",
+      "title": "Event Loop Understanding",
+      "question": "What is the correct order of execution in the JavaScript event loop?",
+      "code": "",
+      "options": [
+        "Call stack → Microtasks → Macrotasks",
+        "Macrotasks → Call stack → Microtasks",
+        "Microtasks → Macrotasks → Call stack",
+        "Call stack → Macrotasks → Microtasks"
+      ],
+      "correctAnswer": 0,
+      "explanation": "JavaScript executes: 1) Current call stack, 2) All microtasks (Promise.then, queueMicrotask), 3) One macrotask (setTimeout, setInterval).",
+      "hints": ["Call stack has highest priority", "Microtasks drain completely before macrotasks"],
+      "tags": ["event-loop", "microtasks", "macrotasks"],
+      "relatedConcepts": ["Event loop", "Task queue", "Call stack"]
+    },
+    {
+      "id": 31,
+      "category": "testing",
+      "difficulty": "beginner",
+      "type": "concept",
+      "title": "Testing Fundamentals",
+      "question": "What is the primary purpose of unit testing?",
+      "code": "",
+      "options": [
+        "Test the entire application",
+        "Test individual functions/methods in isolation",
+        "Test user interface",
+        "Test database connections"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Unit testing focuses on testing individual units of code (functions, methods) in isolation to ensure they work correctly.",
+      "hints": ["Unit testing focuses on individual pieces", "Isolation is key to unit testing"],
+      "tags": ["unit-testing", "testing", "isolation"],
+      "relatedConcepts": ["Unit testing", "Test isolation", "Code quality"]
+    },
+    {
+      "id": 32,
+      "category": "testing",
+      "difficulty": "intermediate",
+      "type": "concept",
+      "title": "Mocking and Stubbing",
+      "question": "What is the difference between a mock and a stub?",
+      "code": "",
+      "options": [
+        "No difference, they're the same thing",
+        "Mocks verify behavior, stubs provide data",
+        "Stubs verify behavior, mocks provide data",
+        "Mocks are faster than stubs"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Mocks are used to verify that certain methods were called with specific parameters. Stubs provide predetermined responses to method calls.",
+      "hints": ["Think about verification vs providing data", "Mocks check what happened, stubs control what happens"],
+      "tags": ["mocking", "stubbing", "testing"],
+      "relatedConcepts": ["Test doubles", "Behavior verification", "Test isolation"]
+    },
+    {
+      "id": 33,
+      "category": "advanced",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Proxy Object",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { x: 1 };\nconst proxy = new Proxy(obj, {\n  get(target, prop) {\n    return prop in target ? target[prop] : 'default';\n  }\n});\n\nconsole.log(proxy.x);\nconsole.log(proxy.y);",
+      "options": [
+        "1, undefined",
+        "1, default",
+        "undefined, default",
+        "1, null"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Proxy intercepts property access. The get trap returns the actual value if property exists, otherwise returns 'default'.",
+      "hints": ["Proxy can intercept property access", "The get trap can modify return values"],
+      "tags": ["proxy", "metaprogramming", "property-access"],
+      "relatedConcepts": ["Proxy objects", "Metaprogramming", "Property interception"]
+    },
+    {
+      "id": 34,
+      "category": "advanced",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Symbol Properties",
+      "question": "What will be the output of the following code?",
+      "code": "const sym = Symbol('test');\nconst obj = {\n  [sym]: 'symbol value',\n  regular: 'regular value'\n};\n\nconsole.log(Object.keys(obj));\nconsole.log(Object.getOwnPropertySymbols(obj).length);",
+      "options": [
+        "['test', 'regular'], 1",
+        "['regular'], 1",
+        "[Symbol(test), 'regular'], 1",
+        "['regular'], 0"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Object.keys() doesn't include symbol properties. Object.getOwnPropertySymbols() is needed to get symbol properties.",
+      "hints": ["Symbol properties are not enumerable by Object.keys()", "Special method needed for symbol properties"],
+      "tags": ["symbols", "object-keys", "enumeration"],
+      "relatedConcepts": ["Symbol properties", "Object enumeration", "Property visibility"]
+    },
+    {
+      "id": 35,
+      "category": "advanced",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Generator Functions",
+      "question": "What will be the output of the following code?",
+      "code": "function* counter() {\n  let i = 0;\n  while (true) {\n    yield i++;\n  }\n}\n\nconst gen = counter();\nconsole.log(gen.next().value);\nconsole.log(gen.next().value);\nconsole.log(gen.next().value);",
+      "options": [
+        "0, 1, 2",
+        "1, 2, 3",
+        "0, 0, 0",
+        "undefined, undefined, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Generator functions maintain state between calls. Each next() call resumes execution from where it left off.",
+      "hints": ["Generators maintain state between calls", "yield pauses execution and returns value"],
+      "tags": ["generators", "yield", "iterators"],
+      "relatedConcepts": ["Generator functions", "Iterators", "Stateful functions"]
+    },
+    {
+      "id": 36,
+      "category": "dom",
+      "difficulty": "intermediate",
+      "type": "concept",
+      "title": "Event Delegation",
+      "question": "What is event delegation in JavaScript?",
+      "code": "",
+      "options": [
+        "Assigning multiple events to one element",
+        "Using a parent element to handle events for child elements",
+        "Preventing event propagation",
+        "Creating custom events"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Event delegation uses event bubbling to handle events on child elements through a parent element, reducing memory usage and handling dynamic content.",
+      "hints": ["Think about event bubbling", "One handler for multiple elements"],
+      "tags": ["event-delegation", "dom", "events"],
+      "relatedConcepts": ["Event bubbling", "DOM events", "Event handling"]
+    },
+    {
+      "id": 37,
+      "category": "dom",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "DOM Selection",
+      "question": "What will be the output of the following code?",
+      "code": "// HTML: <div id='test'>Hello</div>\nconst element = document.getElementById('test');\nconsole.log(element.textContent);\nelement.textContent = 'World';\nconsole.log(element.textContent);",
+      "options": [
+        "Hello, Hello",
+        "Hello, World",
+        "World, World",
+        "undefined, World"
+      ],
+      "correctAnswer": 1,
+      "explanation": "textContent gets and sets the text content of an element. First it reads 'Hello', then it's changed to 'World'.",
+      "hints": ["textContent gets and sets text", "Assignment changes the content"],
+      "tags": ["dom", "textContent", "element-manipulation"],
+      "relatedConcepts": ["DOM manipulation", "Element properties", "Text content"]
+    },
+    {
+      "id": 38,
+      "category": "dom",
+      "difficulty": "intermediate",
+      "type": "concept",
+      "title": "Event Phases",
+      "question": "What are the three phases of DOM event propagation?",
+      "code": "",
+      "options": [
+        "Capture → Target → Bubble",
+        "Bubble → Target → Capture",
+        "Target → Capture → Bubble",
+        "Target → Bubble → Capture"
+      ],
+      "correctAnswer": 0,
+      "explanation": "DOM events propagate in three phases: Capture (from document to target), Target (at the target element), Bubble (from target back to document).",
+      "hints": ["Events start from the top and go down, then back up", "Target is in the middle"],
+      "tags": ["event-propagation", "capture", "bubble"],
+      "relatedConcepts": ["Event propagation", "Event phases", "DOM events"]
+    },
+    {
+      "id": 39,
+      "category": "operators",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Logical Operators",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(false || 'hello');\nconsole.log(true && 'world');\nconsole.log(null ?? 'default');",
+      "options": [
+        "false, true, null",
+        "hello, world, default",
+        "false, world, default",
+        "hello, true, null"
+      ],
+      "correctAnswer": 1,
+      "explanation": "|| returns first truthy value, && returns last value if all truthy, ?? returns right side if left is null/undefined.",
+      "hints": ["|| finds first truthy value", "&& returns last value if all truthy", "?? checks for null/undefined only"],
+      "tags": ["logical-operators", "short-circuit", "nullish-coalescing"],
+      "relatedConcepts": ["Logical operators", "Short-circuit evaluation", "Nullish coalescing"]
+    },
+    {
+      "id": 40,
+      "category": "operators",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Optional Chaining",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = {\n  user: {\n    name: 'Alice'\n  }\n};\n\nconsole.log(obj.user?.name);\nconsole.log(obj.user?.age);\nconsole.log(obj.admin?.name);",
+      "options": [
+        "Alice, undefined, undefined",
+        "Alice, null, null",
+        "Alice, undefined, TypeError",
+        "Alice, age, name"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Optional chaining (?.) safely accesses nested properties. If any part is null/undefined, it returns undefined instead of throwing an error.",
+      "hints": ["?. prevents errors when accessing nested properties", "Returns undefined if any part is null/undefined"],
+      "tags": ["optional-chaining", "safe-navigation", "es2020"],
+      "relatedConcepts": ["Optional chaining", "Safe property access", "Modern JavaScript"]
+    }
+  ]
+}

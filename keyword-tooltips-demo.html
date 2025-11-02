@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clickable Keywords Demo</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .keyword {
+            color: #1976d2;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 1px dotted #1976d2;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        .keyword:hover {
+            background: #1976d2;
+            color: white;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .code-sample {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .explanation {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Interactive Keyword Tooltips Demo</h1>
+    
+    <div class="demo-section">
+        <h2>📋 Understanding This Question</h2>
+        <p>
+            What will this code output? Predict the result by understanding how 
+            <span class="keyword" data-tooltip="📦 A container that stores data values. Can hold numbers, strings, objects, etc.">variables</span> and 
+            <span class="keyword" data-tooltip="🏗️ A collection of key-value pairs that represent real-world entities. Properties store data, methods perform actions.">objects</span> work.
+        </p>
+        
+        <div class="code-sample">const obj = { x: 1 };<br>
+const obj2 = obj;<br>
+obj.x = 2;<br>
+console.log(obj2.x);</div>
+        
+        <div class="explanation">
+            <strong>🔍 Breaking Down the Syntax:</strong><br><br>
+            
+            <strong>Line 1:</strong> <code>const obj = { x: 1 };</code><br>
+            📦 Creates an <span class="keyword" data-tooltip="🏗️ A collection of key-value pairs that represent real-world entities. Properties store data, methods perform actions.">object</span> called "obj". The curly braces { } create an object. Inside: "x" is the <span class="keyword" data-tooltip="🔑 A named piece of data belonging to an object. Accessed using dot notation (obj.property).">property</span> name, 1 is its value.<br><br>
+            
+            <strong>Line 2:</strong> <code>const obj2 = obj;</code><br>
+            🔗 Creates a new <span class="keyword" data-tooltip="📦 A container that stores data values. Can hold numbers, strings, objects, etc.">variable</span> "obj2" that points to the same object as "obj". They both <span class="keyword" data-tooltip="🔗 When variables point to the same object in memory. Changes affect all references.">reference</span> the same memory location!<br><br>
+            
+            <strong>Line 3:</strong> <code>obj.x = 2;</code><br>
+            ✏️ Changes the "x" <span class="keyword" data-tooltip="🔑 A named piece of data belonging to an object. Accessed using dot notation (obj.property).">property</span> of object "obj" to 2. Since objects are referenced, this change affects all variables pointing to the same object!<br><br>
+            
+            <strong>Line 4:</strong> <code>console.log(obj2.x);</code><br>
+            🖨️ Prints the value of <span class="keyword" data-tooltip="🔑 A named piece of data belonging to an object. Accessed using dot notation (obj.property).">property</span> "x" from object "obj2". Result: <strong>2</strong> (because obj.x was changed to 2, and obj2 points to the same object)
+        </div>
+    </div>
+    
+    <div class="demo-section">
+        <h2>💡 How It Works in Your App</h2>
+        <ul>
+            <li><strong>🎯 Automatic Detection:</strong> Keywords like <span class="keyword" data-tooltip="📦 A container that stores data values. Can hold numbers, strings, objects, etc.">variable</span>, <span class="keyword" data-tooltip="⚙️ A reusable block of code that performs a specific task. Can accept inputs (parameters) and return outputs.">function</span>, <span class="keyword" data-tooltip="🎯 Determines where variables can be accessed in your code. Can be global, function, or block scope.">scope</span> are automatically made clickable</li>
+            <li><strong>📚 Instant Definitions:</strong> Click any keyword to see its definition in a tooltip</li>
+            <li><strong>🎨 Visual Cues:</strong> Dotted underlines show which words are clickable</li>
+            <li><strong>📱 Context-Aware:</strong> Definitions are beginner-friendly with examples</li>
+        </ul>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Simple tooltip functionality for demo
+        const keywords = document.querySelectorAll('.keyword');
+        const tooltip = document.getElementById('tooltip');
+        
+        keywords.forEach(keyword => {
+            keyword.addEventListener('click', (e) => {
+                const definition = e.target.getAttribute('data-tooltip');
+                tooltip.innerHTML = `<strong>${e.target.textContent}</strong><br>${definition}`;
+                tooltip.style.display = 'block';
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 50 + 'px';
+            });
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('keyword')) {
+                tooltip.style.display = 'none';
+            }
+        });
+        
+        // Actual result demonstration
+        const obj = { x: 1 };
+        const obj2 = obj;
+        obj.x = 2;
+        console.log('Demo result - obj2.x =', obj2.x);
+    </script>
+</body>
+</html>
