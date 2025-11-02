@@ -40,7 +40,9 @@ import {
   ListItemText,
   BottomNavigation,
   BottomNavigationAction,
-  Collapse
+  Collapse,
+  Divider,
+  Fab
 } from '@mui/material'
 import {
   DarkMode,
@@ -58,7 +60,9 @@ import {
   Menu,
   Close,
   ExpandMore,
-  ExpandLess
+  ExpandLess,
+  PhoneAndroid,
+  Computer
 } from '@mui/icons-material'
 
 import { questions } from './data/questions'
@@ -204,20 +208,6 @@ const enhanceTextWithKeywords = (text) => {
 }
 
 function App() {
-  // Available topics for navigation
-  const topics = [
-    { id: 'variables', name: 'Variables', icon: '📝' },
-    { id: 'arrays', name: 'Arrays', icon: '📊' },
-    { id: 'functions', name: 'Functions', icon: '⚡' },
-    { id: 'objects', name: 'Objects', icon: '🎯' },
-    { id: 'loops', name: 'Loops', icon: '🔄' },
-    { id: 'closures', name: 'Closures', icon: '🔒' },
-    { id: 'promises', name: 'Promises', icon: '⏰' },
-    { id: 'es6', name: 'ES6+', icon: '✨' },
-    { id: 'dom', name: 'DOM', icon: '🌐' },
-    { id: 'async', name: 'Async/Await', icon: '🚀' }
-  ]
-
   // State
   const [darkMode, setDarkMode] = useState(false)
   const [activeTopic, setActiveTopic] = useState('variables')
@@ -237,11 +227,165 @@ function App() {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
   const [mobileBottomNav, setMobileBottomNav] = useState(0) // 0: Question, 1: About, 2: Console
   const [mobileCodeExpanded, setMobileCodeExpanded] = useState(false)
+  const [mobileAboutExpanded, setMobileAboutExpanded] = useState(false)
   
   // New state for database
   const [questionDatabase, setQuestionDatabase] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [databaseQuestions, setDatabaseQuestions] = useState([])
+
+  // Google-inspired Theme with Mobile Responsiveness
+  const responsiveTheme = createTheme({
+    palette: {
+      mode: darkMode ? 'dark' : 'light',
+      primary: {
+        main: '#1a73e8', // Google Blue
+        light: '#4285f4',
+        dark: '#1557b0',
+      },
+      secondary: {
+        main: '#34a853', // Google Green
+      },
+      success: {
+        main: '#34a853', // Google Green
+      },
+      warning: {
+        main: '#fbbc04', // Google Yellow
+      },
+      error: {
+        main: '#ea4335', // Google Red
+      },
+      background: {
+        default: darkMode ? '#202124' : '#ffffff',
+        paper: darkMode ? '#303134' : '#ffffff',
+      },
+      text: {
+        primary: darkMode ? '#e8eaed' : '#202124',
+        secondary: darkMode ? '#9aa0a6' : '#5f6368',
+      },
+    },
+    typography: {
+      fontFamily: '"Google Sans", "Roboto", "Helvetica", "Arial", sans-serif',
+      h4: {
+        fontWeight: 500,
+        letterSpacing: '0',
+        '@media (max-width:600px)': {
+          fontSize: '1.75rem',
+        },
+      },
+      h5: {
+        fontWeight: 500,
+        letterSpacing: '0',
+        '@media (max-width:600px)': {
+          fontSize: '1.5rem',
+        },
+      },
+      h6: {
+        fontWeight: 500,
+        letterSpacing: '0',
+        '@media (max-width:600px)': {
+          fontSize: '1.25rem',
+        },
+      },
+      body1: {
+        letterSpacing: '0.25px',
+        '@media (max-width:600px)': {
+          fontSize: '0.9rem',
+        },
+      },
+      body2: {
+        letterSpacing: '0.25px',
+        '@media (max-width:600px)': {
+          fontSize: '0.8rem',
+        },
+      },
+      button: {
+        textTransform: 'none',
+        fontWeight: 500,
+        letterSpacing: '0.25px',
+        '@media (max-width:600px)': {
+          fontSize: '0.875rem',
+        },
+      },
+    },
+    shape: {
+      borderRadius: 8,
+    },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 24,
+            padding: '8px 24px',
+            boxShadow: 'none',
+            minHeight: 44, // Touch-friendly minimum height
+            '@media (max-width:600px)': {
+              padding: '12px 20px',
+              minHeight: 48,
+              fontSize: '0.875rem',
+            },
+            '&:hover': {
+              boxShadow: '0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15)',
+            },
+          },
+        },
+      },
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            '@media (max-width:600px)': {
+              padding: '12px', // Larger touch target
+            },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            boxShadow: '0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)',
+          },
+        },
+      },
+      MuiFab: {
+        styleOverrides: {
+          root: {
+            '@media (max-width:600px)': {
+              width: 56,
+              height: 56,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  // Mobile responsive breakpoints
+  const isMobile = useMediaQuery(responsiveTheme.breakpoints.down('md'))
+  const isTablet = useMediaQuery(responsiveTheme.breakpoints.between('md', 'lg'))
+  const isDesktop = useMediaQuery(responsiveTheme.breakpoints.up('lg'))
+
+  // Available topics for navigation
+  const topics = [
+    { id: 'variables', name: 'Variables', icon: '📝' },
+    { id: 'arrays', name: 'Arrays', icon: '📊' },
+    { id: 'functions', name: 'Functions', icon: '⚡' },
+    { id: 'objects', name: 'Objects', icon: '🎯' },
+    { id: 'loops', name: 'Loops', icon: '🔄' },
+    { id: 'closures', name: 'Closures', icon: '🔒' },
+    { id: 'promises', name: 'Promises', icon: '⏰' },
+    { id: 'es6', name: 'ES6+', icon: '✨' },
+    { id: 'dom', name: 'DOM', icon: '🌐' },
+    { id: 'async', name: 'Async/Await', icon: '🚀' }
+  ]
 
   // Initialize question database
   useEffect(() => {
@@ -704,169 +848,8 @@ function App() {
     }
   }, [activeTopic, currentTopicQuestion, selectedDifficulty])
 
-  // Google-inspired Theme with Mobile Responsiveness
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-      primary: {
-        main: '#1a73e8', // Google Blue
-        light: '#4285f4',
-        dark: '#1557b0',
-      },
-      secondary: {
-        main: '#34a853', // Google Green
-      },
-      success: {
-        main: '#34a853', // Google Green
-      },
-      warning: {
-        main: '#fbbc04', // Google Yellow
-      },
-      error: {
-        main: '#ea4335', // Google Red
-      },
-      background: {
-        default: darkMode ? '#202124' : '#ffffff',
-        paper: darkMode ? '#303134' : '#ffffff',
-      },
-      text: {
-        primary: darkMode ? '#e8eaed' : '#202124',
-        secondary: darkMode ? '#9aa0a6' : '#5f6368',
-      },
-    },
-    typography: {
-      fontFamily: '"Google Sans", "Roboto", "Helvetica", "Arial", sans-serif',
-      h4: {
-        fontWeight: 500,
-        letterSpacing: '0',
-        '@media (max-width:600px)': {
-          fontSize: '1.75rem',
-        },
-      },
-      h5: {
-        fontWeight: 500,
-        letterSpacing: '0',
-        '@media (max-width:600px)': {
-          fontSize: '1.5rem',
-        },
-      },
-      h6: {
-        fontWeight: 500,
-        letterSpacing: '0',
-        '@media (max-width:600px)': {
-          fontSize: '1.25rem',
-        },
-      },
-      body1: {
-        letterSpacing: '0.25px',
-        '@media (max-width:600px)': {
-          fontSize: '0.9rem',
-        },
-      },
-      body2: {
-        letterSpacing: '0.25px',
-        '@media (max-width:600px)': {
-          fontSize: '0.8rem',
-        },
-      },
-      button: {
-        textTransform: 'none',
-        fontWeight: 500,
-        letterSpacing: '0.25px',
-        '@media (max-width:600px)': {
-          fontSize: '0.875rem',
-        },
-      },
-    },
-    shape: {
-      borderRadius: 8,
-    },
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 960,
-        lg: 1280,
-        xl: 1920,
-      },
-    },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 24,
-            padding: '8px 24px',
-            boxShadow: 'none',
-            minHeight: 44, // Touch-friendly minimum height
-            '@media (max-width:600px)': {
-              padding: '12px 20px',
-              minHeight: 48,
-              fontSize: '0.875rem',
-            },
-            '&:hover': {
-              boxShadow: '0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15)',
-            },
-          },
-        },
-      },
-      MuiIconButton: {
-        styleOverrides: {
-          root: {
-            '@media (max-width:600px)': {
-              padding: '12px', // Larger touch target
-            },
-          },
-        },
-      },
-      MuiPaper: {
-        styleOverrides: {
-          root: {
-            boxShadow: '0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)',
-          },
-        },
-      },
-    },
-  })
-
-  // Mobile responsive detection
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-      body1: {
-        letterSpacing: '0.25px',
-      },
-      body2: {
-        letterSpacing: '0.25px',
-      },
-      button: {
-        textTransform: 'none',
-        fontWeight: 500,
-        letterSpacing: '0.25px',
-      },
-    },
-    shape: {
-      borderRadius: 8,
-    },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 24,
-            padding: '8px 24px',
-            boxShadow: 'none',
-            '&:hover': {
-              boxShadow: '0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15)',
-            },
-          },
-        },
-      },
-      MuiPaper: {
-        styleOverrides: {
-          root: {
-            boxShadow: '0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)',
-          },
-        },
-      },
-    },
-  })
+  // Google-inspired Theme
+  const theme = responsiveTheme
 
   // Show loading state while database loads
   if (isLoading) {
@@ -899,235 +882,644 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       
-      {/* Top AppBar - Google Style */}
-      <AppBar 
-        position="static" 
-        elevation={0}
-        sx={{ 
+      {/* Mobile-First Responsive Layout */}
+      {isMobile ? (
+        // Mobile Layout
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'column',
+          height: '100vh',
           backgroundColor: darkMode ? '#202124' : '#ffffff',
-          borderBottom: 1,
-          borderBottomColor: darkMode ? '#3c4043' : '#e8eaed',
-        }}
-      >
-        <Toolbar sx={{ minHeight: '64px' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
-            <Code sx={{ mr: 2, color: '#1a73e8' }} />
-            <Typography 
-              variant="h5" 
-              component="div" 
-              sx={{ 
-                fontWeight: 400,
-                fontSize: '22px',
-                color: darkMode ? '#e8eaed' : '#5f6368',
-                letterSpacing: '0',
-              }}
-            >
-              JS Learning Lab
-            </Typography>
-          </Box>
-          
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-            {/* Score and Streak - Google Style */}
-            <Box sx={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: 2,
-              backgroundColor: darkMode ? '#3c4043' : '#f8f9fa',
-              borderRadius: '20px',
-              px: 2,
-              py: 0.5,
-            }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <EmojiEvents sx={{ color: '#fbbc04', fontSize: '18px' }} />
-                <Typography variant="body2" sx={{ fontWeight: 500, color: darkMode ? '#e8eaed' : '#3c4043' }}>
-                  {score}
-                </Typography>
-              </Box>
-              <Box sx={{ 
-                width: '1px', 
-                height: '16px', 
-                backgroundColor: darkMode ? '#5f6368' : '#dadce0' 
-              }} />
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <Whatshot sx={{ color: '#ea4335', fontSize: '18px' }} />
-                <Typography variant="body2" sx={{ fontWeight: 500, color: darkMode ? '#e8eaed' : '#3c4043' }}>
-                  {streak}
-                </Typography>
-              </Box>
-            </Box>
-
-            {/* Difficulty Level Select - Google Style */}
-            <FormControl size="small" sx={{ minWidth: 130 }}>
-              <InputLabel sx={{ 
-                color: darkMode ? '#9aa0a6' : '#5f6368', 
-                '&.Mui-focused': { color: '#1a73e8' },
-                fontSize: '14px',
-              }}>
-                Difficulty
-              </InputLabel>
-              <Select
-                value={selectedDifficulty}
-                onChange={(e) => setSelectedDifficulty(e.target.value)}
-                label="Difficulty"
-                sx={{
-                  borderRadius: '8px',
-                  backgroundColor: darkMode ? '#3c4043' : '#f8f9fa',
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: darkMode ? '#5f6368' : '#dadce0',
-                    borderWidth: '1px',
-                  },
-                  '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#1a73e8',
-                  },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#1a73e8',
-                    borderWidth: '2px',
-                  },
-                  '& .MuiSelect-icon': {
-                    color: darkMode ? '#9aa0a6' : '#5f6368',
-                  }
+        }}>
+          {/* Mobile Header */}
+          <AppBar 
+            position="static" 
+            elevation={0}
+            sx={{ 
+              backgroundColor: darkMode ? '#202124' : '#ffffff',
+              borderBottom: 1,
+              borderBottomColor: darkMode ? '#3c4043' : '#e8eaed',
+            }}
+          >
+            <Toolbar sx={{ minHeight: { xs: 56, sm: 64 }, px: 2 }}>
+              <IconButton
+                edge="start"
+                onClick={() => setMobileDrawerOpen(true)}
+                sx={{ 
+                  mr: 2,
+                  color: darkMode ? '#e8eaed' : '#5f6368',
+                  p: 1.5
                 }}
               >
-                <MenuItem value="all">All Levels</MenuItem>
-                <MenuItem value="easy">🟢 Easy</MenuItem>
-                <MenuItem value="medium">🟡 Medium</MenuItem>
-                <MenuItem value="hard">🔴 Hard</MenuItem>
-              </Select>
-            </FormControl>
+                <Menu />
+              </IconButton>
+              
+              <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+                <Code sx={{ mr: 1, color: '#1a73e8', fontSize: 20 }} />
+                <Typography 
+                  variant="h6" 
+                  component="div" 
+                  sx={{ 
+                    fontWeight: 400,
+                    fontSize: '18px',
+                    color: darkMode ? '#e8eaed' : '#5f6368',
+                  }}
+                >
+                  JS Lab
+                </Typography>
+              </Box>
+              
+              <Box sx={{ flexGrow: 1 }} />
 
-            {/* Shuffle Questions Button */}
-            <IconButton 
-              onClick={handleShuffleQuestions}
-              disabled={!databaseQuestions.length}
-              sx={{ 
-                borderRadius: '50%',
-                p: 1,
-                backgroundColor: darkMode ? '#3c4043' : '#f8f9fa',
-                color: databaseQuestions.length ? (darkMode ? '#e8eaed' : '#5f6368') : '#9aa0a6',
-                '&:hover': {
-                  backgroundColor: databaseQuestions.length ? (darkMode ? '#5f6368' : '#e8eaed') : 'transparent',
-                },
-                '&.Mui-disabled': {
-                  color: '#9aa0a6',
-                },
-              }}
-              title="Shuffle Questions"
-            >
-              <Shuffle />
-            </IconButton>
-
-            {/* Theme Toggle - Google Style */}
-            <IconButton 
-              onClick={() => setDarkMode(!darkMode)} 
-              sx={{ 
-                borderRadius: '50%',
-                p: 1,
-                backgroundColor: darkMode ? '#3c4043' : '#f8f9fa',
-                color: darkMode ? '#e8eaed' : '#5f6368',
-                '&:hover': {
-                  backgroundColor: darkMode ? '#5f6368' : '#e8eaed',
-                },
-              }}
-            >
-              {darkMode ? <LightMode sx={{ fontSize: '20px' }} /> : <DarkMode sx={{ fontSize: '20px' }} />}
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-
-      {/* Main Layout - Google Style */}
-      <Box sx={{ 
-        height: 'calc(100vh - 80px)', 
-        display: 'flex',
-        backgroundColor: darkMode ? '#202124' : '#ffffff',
-      }}>
-        {/* Sidebar (Left full height) - Google Style */}
-        <Paper 
-          elevation={0}
-          sx={{ 
-            width: 280,
-            display: 'flex',
-            flexDirection: 'column',
-            borderRadius: 0,
-            borderRight: 1,
-            borderColor: darkMode ? '#3c4043' : '#e8eaed',
-            backgroundColor: darkMode ? '#292a2d' : '#f8f9fa',
-          }}
-        >
-          {/* Sidebar Header */}
-          <Box sx={{ 
-            p: 3, 
-            borderBottom: 1, 
-            borderColor: darkMode ? '#3c4043' : '#e8eaed',
-            backgroundColor: darkMode ? '#292a2d' : '#f8f9fa',
-          }}>
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                fontWeight: 500, 
+              {/* Mobile Score */}
+              <Box sx={{ 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: 1,
-                color: darkMode ? '#e8eaed' : '#3c4043',
-                fontSize: '16px',
-              }}
-            >
-              <MenuBook sx={{ fontSize: 20, color: '#1a73e8' }} />
-              JavaScript Topics
-            </Typography>
-          </Box>
-
-          {/* Navigation Items - Google Style */}
-          <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
-            {topics.map((topic) => (
-              <Box
-                key={topic.id}
-                onClick={() => setActiveTopic(topic.id)}
-                sx={{
-                  p: 2,
-                  mb: 1,
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  backgroundColor: activeTopic === topic.id 
-                    ? (darkMode ? '#1a73e8' : '#e8f0fe') 
-                    : 'transparent',
-                  color: activeTopic === topic.id 
-                    ? (darkMode ? '#ffffff' : '#1a73e8')
-                    : (darkMode ? '#e8eaed' : '#3c4043'),
-                  '&:hover': {
-                    backgroundColor: activeTopic === topic.id 
-                      ? (darkMode ? '#1557b0' : '#d2e3fc')
-                      : (darkMode ? '#3c4043' : '#f1f3f4'),
-                  },
-                  transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
-                  border: activeTopic === topic.id 
-                    ? `1px solid ${darkMode ? '#1a73e8' : '#dadce0'}` 
-                    : '1px solid transparent',
-                }}
-              >
-                <Typography 
-                  variant="body2" 
-                  sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: 2, 
-                    fontWeight: activeTopic === topic.id ? 500 : 400,
-                    fontSize: '14px',
-                    letterSpacing: '0.25px',
-                  }}
-                >
-                  <span style={{ fontSize: '16px' }}>{topic.icon}</span>
-                  {topic.name}
+                backgroundColor: darkMode ? '#3c4043' : '#f8f9fa',
+                borderRadius: '16px',
+                px: 1.5,
+                py: 0.5,
+              }}>
+                <EmojiEvents sx={{ color: '#fbbc04', fontSize: '16px' }} />
+                <Typography variant="body2" sx={{ fontWeight: 500, fontSize: '0.8rem' }}>
+                  {score}
+                </Typography>
+                <Whatshot sx={{ color: '#ea4335', fontSize: '16px' }} />
+                <Typography variant="body2" sx={{ fontWeight: 500, fontSize: '0.8rem' }}>
+                  {streak}
                 </Typography>
               </Box>
-            ))}
-          </Box>
-        </Paper>
 
-        {/* Main Content Area - Google Style */}
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <IconButton 
+                onClick={() => setDarkMode(!darkMode)} 
+                sx={{ 
+                  ml: 1,
+                  color: darkMode ? '#e8eaed' : '#5f6368',
+                  p: 1.5
+                }}
+              >
+                {darkMode ? <LightMode sx={{ fontSize: '20px' }} /> : <DarkMode sx={{ fontSize: '20px' }} />}
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+
+          {/* Mobile Content Area */}
+          <Box sx={{ flex: 1, overflow: 'hidden' }}>
+            {mobileBottomNav === 0 && (
+              // Question View
+              <Box sx={{ height: '100%', overflow: 'auto', p: 2 }}>
+                {currentTopicQuestion && topicQuestions.length > 0 && (
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    {/* Mobile Question Header */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Typography 
+                          variant="body2" 
+                          onClick={() => setShowTopicInfo(true)}
+                          sx={{ 
+                            px: 2, 
+                            py: 1, 
+                            backgroundColor: '#1a73e8', 
+                            color: '#ffffff',
+                            borderRadius: '16px',
+                            fontWeight: 500,
+                            fontSize: '0.75rem',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {topics.find(t => t.id === activeTopic)?.name || activeTopic}
+                        </Typography>
+                        
+                        <Typography variant="body2" sx={{ 
+                          px: 2, 
+                          py: 1, 
+                          backgroundColor: darkMode ? '#3c4043' : '#f1f3f4', 
+                          borderRadius: '16px',
+                          fontWeight: 500,
+                          fontSize: '0.75rem'
+                        }}>
+                          {currentQuestionIndex + 1} / {topicQuestions.length}
+                        </Typography>
+                      </Box>
+
+                      {/* Difficulty Level */}
+                      {currentTopicQuestion && (
+                        <Typography variant="body2" sx={{ 
+                          alignSelf: 'flex-start',
+                          px: 2, 
+                          py: 1, 
+                          backgroundColor: currentDifficulty === 'easy' ? '#34a853' : 
+                                         currentDifficulty === 'medium' ? '#fbbc04' : '#ea4335',
+                          color: '#ffffff',
+                          borderRadius: '16px',
+                          fontWeight: 500,
+                          fontSize: '0.75rem',
+                          textTransform: 'capitalize'
+                        }}>
+                          {currentDifficulty}
+                        </Typography>
+                      )}
+                    </Box>
+
+                    {/* Question Text */}
+                    <Typography variant="h6" sx={{ 
+                      fontWeight: 400, 
+                      fontSize: '1rem',
+                      lineHeight: 1.5,
+                      mb: 1
+                    }}>
+                      {currentTopicQuestion.question}
+                    </Typography>
+
+                    {/* Code Sample */}
+                    <Paper 
+                      variant="outlined" 
+                      sx={{ 
+                        backgroundColor: '#272822',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Box sx={{ height: '200px' }}>
+                        <CodeEditor 
+                          value={normalizedQuestion?.starterCode || ''}
+                          onChange={() => {}} // Read-only
+                          readOnly={true}
+                        />
+                      </Box>
+                    </Paper>
+
+                    {/* Multiple Choice Options */}
+                    <Box>
+                      <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 600 }}>
+                        Choose the correct output:
+                      </Typography>
+                      
+                      <RadioGroup
+                        value={selectedAnswer || ''}
+                        onChange={(e) => handleAnswerSelect(e.target.value)}
+                      >
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                          {getMultipleChoiceOptions(currentTopicQuestion).map((option) => (
+                            <FormControlLabel
+                              key={option.id}
+                              value={option.id}
+                              control={<Radio size="small" />}
+                              label={
+                                <Typography variant="body2" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                                  {option.id}. {option.text}
+                                </Typography>
+                              }
+                              sx={{ 
+                                margin: 0,
+                                p: 2,
+                                border: 1,
+                                borderRadius: 2,
+                                borderColor: selectedAnswer === option.id ? 'primary.main' : 'divider',
+                                backgroundColor: selectedAnswer === option.id ? 'primary.light' : 'transparent',
+                                '&:hover': {
+                                  borderColor: 'primary.main',
+                                  backgroundColor: 'primary.light'
+                                },
+                                transition: 'all 0.2s ease'
+                              }}
+                            />
+                          ))}
+                        </Box>
+                      </RadioGroup>
+                    </Box>
+
+                    {/* Mobile Submit Button */}
+                    <Button
+                      variant="contained"
+                      onClick={handleSubmitAnswer}
+                      disabled={!selectedAnswer}
+                      fullWidth
+                      sx={{ 
+                        py: 1.5,
+                        fontSize: '1rem',
+                        fontWeight: 600
+                      }}
+                    >
+                      Submit Answer
+                    </Button>
+
+                    {/* Result */}
+                    {showResult && (
+                      <Alert 
+                        severity={getMultipleChoiceOptions(currentTopicQuestion).find(o => o.id === selectedAnswer)?.isCorrect ? 'success' : 'error'}
+                        sx={{ mt: 2 }}
+                      >
+                        <Typography variant="body2">
+                          {getMultipleChoiceOptions(currentTopicQuestion).find(o => o.id === selectedAnswer)?.isCorrect 
+                            ? '🎉 Correct! Great job!' 
+                            : '❌ Incorrect. Try again!'}
+                        </Typography>
+                      </Alert>
+                    )}
+                  </Box>
+                )}
+              </Box>
+            )}
+
+            {mobileBottomNav === 1 && (
+              // About/Code View
+              <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                {/* Expandable Code Editor Section */}
+                <Paper 
+                  elevation={0}
+                  sx={{ 
+                    borderBottom: 1,
+                    borderColor: 'divider',
+                    borderRadius: 0
+                  }}
+                >
+                  <Box 
+                    onClick={() => setMobileCodeExpanded(!mobileCodeExpanded)}
+                    sx={{ 
+                      p: 2, 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'space-between',
+                      cursor: 'pointer',
+                      backgroundColor: darkMode ? '#1f2022' : '#f8f9fa',
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Code sx={{ fontSize: 16 }} />
+                      <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        Code Editor
+                      </Typography>
+                    </Box>
+                    
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          runCode()
+                        }}
+                        startIcon={<PlayArrow />}
+                        sx={{ mr: 1 }}
+                      >
+                        Run
+                      </Button>
+                      {mobileCodeExpanded ? <ExpandLess /> : <ExpandMore />}
+                    </Box>
+                  </Box>
+                  
+                  <Collapse in={mobileCodeExpanded}>
+                    <Box sx={{ height: '300px', borderTop: 1, borderColor: 'divider' }}>
+                      <CodeEditor 
+                        value={userCode}
+                        onChange={setUserCode}
+                        darkMode={true}
+                      />
+                    </Box>
+                  </Collapse>
+                </Paper>
+
+                {/* About Question Section */}
+                <Box sx={{ flex: 1, overflow: 'auto' }}>
+                  <Box sx={{ p: 2 }}>
+                    <Tabs 
+                      value={aboutTabValue} 
+                      onChange={(event, newValue) => setAboutTabValue(newValue)}
+                      variant="fullWidth"
+                      sx={{ mb: 2 }}
+                    >
+                      <Tab label="About" sx={{ textTransform: 'none', fontWeight: 600, fontSize: '0.875rem' }} />
+                      <Tab label="Solution" sx={{ textTransform: 'none', fontWeight: 600, fontSize: '0.875rem' }} />
+                    </Tabs>
+                    
+                    {/* Tab Content - Same as desktop but mobile optimized */}
+                    {aboutTabValue === 0 && currentTopicQuestion && (
+                      <Box>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'primary.main', fontSize: '1rem' }}>
+                          📋 Understanding This Question
+                        </Typography>
+                        
+                        <Typography variant="body2" sx={{ mb: 2, lineHeight: 1.6 }}>
+                          {enhanceTextWithKeywords(normalizedQuestion?.question || '')}
+                        </Typography>
+
+                        {currentTopicQuestion.hint && (
+                          <Alert severity="info" sx={{ mb: 2 }}>
+                            <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
+                              💡 {currentTopicQuestion.hint}
+                            </Typography>
+                          </Alert>
+                        )}
+
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, fontSize: '0.9rem' }}>
+                          🎯 Expected Output:
+                        </Typography>
+                        <Paper sx={{ 
+                          p: 1.5, 
+                          backgroundColor: '#272822',
+                          borderColor: '#a6e22e',
+                          border: '1px solid #a6e22e',
+                          mb: 2
+                        }}>
+                          <Typography 
+                            component="pre" 
+                            variant="body2" 
+                            sx={{ 
+                              color: '#a6e22e',
+                              fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                              margin: 0,
+                              fontSize: '0.8rem'
+                            }}
+                          >
+                            {currentTopicQuestion.expectedOutput}
+                          </Typography>
+                        </Paper>
+                      </Box>
+                    )}
+
+                    {aboutTabValue === 1 && currentTopicQuestion && (
+                      <Box>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'primary.main', fontSize: '1rem' }}>
+                          💡 Step-by-Step Solution
+                        </Typography>
+                        
+                        <Typography variant="body2" sx={{ mb: 2, fontStyle: 'italic', fontSize: '0.8rem' }}>
+                          {currentTopicQuestion.hint}
+                        </Typography>
+
+                        {generateCodeBreakdown(currentTopicQuestion.starterCode).map((step, index) => (
+                          <Box key={index} sx={{ mb: 2, p: 1.5, backgroundColor: 'grey.50', borderRadius: 1 }}>
+                            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                              <Typography variant="caption" sx={{ 
+                                backgroundColor: 'primary.main', 
+                                color: 'white', 
+                                px: 1, 
+                                py: 0.5, 
+                                borderRadius: 1,
+                                fontWeight: 600,
+                                minWidth: '24px',
+                                textAlign: 'center',
+                                fontSize: '0.7rem'
+                              }}>
+                                {step.lineNumber}
+                              </Typography>
+                              <Box sx={{ flex: 1 }}>
+                                <Paper sx={{ 
+                                  p: 1, 
+                                  mb: 1,
+                                  backgroundColor: '#272822',
+                                  borderColor: '#49483e',
+                                  border: '1px solid #49483e'
+                                }}>
+                                  <Typography 
+                                    component="pre" 
+                                    variant="body2" 
+                                    sx={{ 
+                                      color: '#f8f8f2',
+                                      fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                                      margin: 0,
+                                      fontSize: '0.75rem'
+                                    }}
+                                  >
+                                    {step.code}
+                                  </Typography>
+                                </Paper>
+                                <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.4, fontSize: '0.8rem' }}>
+                                  {step.explanation}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </Box>
+                        ))}
+                      </Box>
+                    )}
+                  </Box>
+                </Box>
+              </Box>
+            )}
+
+            {mobileBottomNav === 2 && (
+              // Console View
+              <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ 
+                  p: 2,
+                  backgroundColor: darkMode ? '#1f2022' : '#f8f9fa',
+                  borderBottom: 1,
+                  borderColor: 'divider',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Terminal sx={{ fontSize: 16 }} />
+                    <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                      Console Output
+                    </Typography>
+                  </Box>
+                  
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Button
+                      size="small"
+                      variant="text"
+                      onClick={resetCode}
+                      startIcon={<Refresh />}
+                      sx={{ fontSize: '0.8rem' }}
+                    >
+                      Reset
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={runCode}
+                      startIcon={<PlayArrow />}
+                    >
+                      Run
+                    </Button>
+                  </Box>
+                </Box>
+                
+                <Box sx={{ 
+                  flex: 1, 
+                  overflow: 'auto', 
+                  p: 2, 
+                  backgroundColor: '#272822',
+                  color: '#f8f8f2',
+                  fontFamily: 'monospace',
+                  fontSize: '0.8rem',
+                  lineHeight: 1.5
+                }}>
+                  {result ? (
+                    <Fade in timeout={300}>
+                      <div>
+                        <ResultDisplay result={result} />
+                      </div>
+                    </Fade>
+                  ) : (
+                    <Box sx={{ 
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      color: '#75715e'
+                    }}>
+                      <Terminal sx={{ fontSize: 32, mb: 2, opacity: 0.3 }} />
+                      <Typography variant="body2" sx={{ color: '#75715e', textAlign: 'center' }}>
+                        Click "Run" to execute your code
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
+              </Box>
+            )}
+          </Box>
+
+          {/* Mobile Bottom Navigation */}
+          <Paper 
+            elevation={3} 
+            sx={{ 
+              position: 'fixed',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              zIndex: 1000,
+              borderRadius: 0,
+              borderTop: 1,
+              borderTopColor: 'divider'
+            }}
+          >
+            <BottomNavigation
+              value={mobileBottomNav}
+              onChange={(event, newValue) => setMobileBottomNav(newValue)}
+              sx={{
+                backgroundColor: darkMode ? '#303134' : '#ffffff',
+                '& .MuiBottomNavigationAction-root': {
+                  color: darkMode ? '#9aa0a6' : '#5f6368',
+                  '&.Mui-selected': {
+                    color: '#1a73e8',
+                  },
+                  minWidth: 'auto',
+                  padding: '6px 12px 8px'
+                }
+              }}
+            >
+              <BottomNavigationAction
+                label="Question"
+                icon={<MenuBook />}
+                sx={{ fontSize: '0.75rem' }}
+              />
+              <BottomNavigationAction
+                label="Code & About"
+                icon={<Code />}
+                sx={{ fontSize: '0.75rem' }}
+              />
+              <BottomNavigationAction
+                label="Console"
+                icon={<Terminal />}
+                sx={{ fontSize: '0.75rem' }}
+              />
+            </BottomNavigation>
+          </Paper>
+
+          {/* Mobile Drawer for Topics */}
+          <Drawer
+            anchor="left"
+            open={mobileDrawerOpen}
+            onClose={() => setMobileDrawerOpen(false)}
+            sx={{
+              '& .MuiDrawer-paper': {
+                width: 280,
+                backgroundColor: darkMode ? '#292a2d' : '#f8f9fa',
+              },
+            }}
+          >
+            <Box sx={{ 
+              p: 2, 
+              borderBottom: 1, 
+              borderColor: 'divider',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}>
+              <Typography variant="h6" sx={{ fontWeight: 500, fontSize: '1rem' }}>
+                📚 Topics
+              </Typography>
+              <IconButton onClick={() => setMobileDrawerOpen(false)}>
+                <Close />
+              </IconButton>
+            </Box>
+            
+            {/* Difficulty Filter */}
+            <Box sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
+              <FormControl fullWidth size="small">
+                <InputLabel>Difficulty</InputLabel>
+                <Select
+                  value={selectedDifficulty}
+                  onChange={(e) => setSelectedDifficulty(e.target.value)}
+                  label="Difficulty"
+                >
+                  <MenuItem value="all">All Levels</MenuItem>
+                  <MenuItem value="easy">🟢 Easy</MenuItem>
+                  <MenuItem value="medium">🟡 Medium</MenuItem>
+                  <MenuItem value="hard">🔴 Hard</MenuItem>
+                </Select>
+              </FormControl>
+              
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={handleShuffleQuestions}
+                startIcon={<Shuffle />}
+                sx={{ mt: 2 }}
+              >
+                Shuffle Questions
+              </Button>
+            </Box>
+
+            <List sx={{ pt: 0 }}>
+              {topics.map((topic) => (
+                <ListItem
+                  button
+                  key={topic.id}
+                  onClick={() => {
+                    setActiveTopic(topic.id)
+                    setMobileDrawerOpen(false)
+                  }}
+                  sx={{
+                    backgroundColor: activeTopic === topic.id 
+                      ? (darkMode ? '#1a73e8' : '#e8f0fe') 
+                      : 'transparent',
+                    color: activeTopic === topic.id 
+                      ? (darkMode ? '#ffffff' : '#1a73e8')
+                      : 'inherit',
+                    '&:hover': {
+                      backgroundColor: activeTopic === topic.id 
+                        ? (darkMode ? '#1557b0' : '#d2e3fc')
+                        : (darkMode ? '#3c4043' : '#f1f3f4'),
+                    },
+                    borderRadius: 1,
+                    mx: 1,
+                    mb: 0.5
+                  }}
+                >
+                  <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
+                    <span style={{ fontSize: '16px' }}>{topic.icon}</span>
+                  </ListItemIcon>
+                  <ListItemText 
+                    primary={topic.name}
+                    primaryTypographyProps={{
+                      fontSize: '0.875rem',
+                      fontWeight: activeTopic === topic.id ? 500 : 400
+                    }}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Drawer>
+        </Box>
+      ) : (
           {/* Content (Top 60%) */}
           <Box sx={{ 
             height: '60%', 

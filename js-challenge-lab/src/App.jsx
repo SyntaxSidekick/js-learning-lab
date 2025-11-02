@@ -31,16 +31,7 @@ import {
   ClickAwayListener,
   Popper,
   Grow,
-  CircularProgress,
-  useMediaQuery,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  BottomNavigation,
-  BottomNavigationAction,
-  Collapse
+  CircularProgress
 } from '@mui/material'
 import {
   DarkMode,
@@ -54,11 +45,7 @@ import {
   AutoAwesome,
   Terminal,
   MenuBook,
-  Shuffle,
-  Menu,
-  Close,
-  ExpandMore,
-  ExpandLess
+  Shuffle
 } from '@mui/icons-material'
 
 import { questions } from './data/questions'
@@ -232,11 +219,6 @@ function App() {
   const [aboutTabValue, setAboutTabValue] = useState(0)
   const [showTopicInfo, setShowTopicInfo] = useState(false)
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' })
-  
-  // Mobile navigation state
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
-  const [mobileBottomNav, setMobileBottomNav] = useState(0) // 0: Question, 1: About, 2: Console
-  const [mobileCodeExpanded, setMobileCodeExpanded] = useState(false)
   
   // New state for database
   const [questionDatabase, setQuestionDatabase] = useState(null)
@@ -704,7 +686,7 @@ function App() {
     }
   }, [activeTopic, currentTopicQuestion, selectedDifficulty])
 
-  // Google-inspired Theme with Mobile Responsiveness
+  // Google-inspired Theme
   const theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
@@ -739,97 +721,15 @@ function App() {
       h4: {
         fontWeight: 500,
         letterSpacing: '0',
-        '@media (max-width:600px)': {
-          fontSize: '1.75rem',
-        },
       },
       h5: {
         fontWeight: 500,
         letterSpacing: '0',
-        '@media (max-width:600px)': {
-          fontSize: '1.5rem',
-        },
       },
       h6: {
         fontWeight: 500,
         letterSpacing: '0',
-        '@media (max-width:600px)': {
-          fontSize: '1.25rem',
-        },
       },
-      body1: {
-        letterSpacing: '0.25px',
-        '@media (max-width:600px)': {
-          fontSize: '0.9rem',
-        },
-      },
-      body2: {
-        letterSpacing: '0.25px',
-        '@media (max-width:600px)': {
-          fontSize: '0.8rem',
-        },
-      },
-      button: {
-        textTransform: 'none',
-        fontWeight: 500,
-        letterSpacing: '0.25px',
-        '@media (max-width:600px)': {
-          fontSize: '0.875rem',
-        },
-      },
-    },
-    shape: {
-      borderRadius: 8,
-    },
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 960,
-        lg: 1280,
-        xl: 1920,
-      },
-    },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            borderRadius: 24,
-            padding: '8px 24px',
-            boxShadow: 'none',
-            minHeight: 44, // Touch-friendly minimum height
-            '@media (max-width:600px)': {
-              padding: '12px 20px',
-              minHeight: 48,
-              fontSize: '0.875rem',
-            },
-            '&:hover': {
-              boxShadow: '0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15)',
-            },
-          },
-        },
-      },
-      MuiIconButton: {
-        styleOverrides: {
-          root: {
-            '@media (max-width:600px)': {
-              padding: '12px', // Larger touch target
-            },
-          },
-        },
-      },
-      MuiPaper: {
-        styleOverrides: {
-          root: {
-            boxShadow: '0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)',
-          },
-        },
-      },
-    },
-  })
-
-  // Mobile responsive detection
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
       body1: {
         letterSpacing: '0.25px',
       },
