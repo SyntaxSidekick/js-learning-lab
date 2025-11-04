@@ -494,11 +494,40 @@ function App() {
         setStreak(0)
       }
     } catch (error) {
+      // Normalize error messages to match database format
+      let errorOutput = `Error: ${error.message}`
+      
+      // Convert specific error messages to simple error types for comparison
+      let normalizedError = errorOutput
+      if (error.message.includes('Cannot access') && error.message.includes('before initialization')) {
+        normalizedError = 'ReferenceError'
+      } else if (error instanceof ReferenceError) {
+        normalizedError = 'ReferenceError'
+      } else if (error instanceof TypeError) {
+        normalizedError = 'TypeError'
+      } else if (error instanceof SyntaxError) {
+        normalizedError = 'SyntaxError'
+      }
+      
+      const isCorrect = normalizedError === currentTopicQuestion.expectedOutput
+
       setResult({
-        output: `Error: ${error.message}`,
-        isCorrect: false,
+        output: errorOutput,
+        isCorrect,
         expected: currentTopicQuestion.expectedOutput
       })
+
+      if (isCorrect) {
+        setScore(score + 10)
+        setStreak(streak + 1)
+        setSnackbar({
+          open: true,
+          message: '🎉 Correct! Well done!',
+          severity: 'success'
+        })
+      } else {
+        setStreak(0)
+      }
     }
   }
 
