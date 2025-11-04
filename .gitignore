@@ -12,8 +12,24 @@ dist
 dist-ssr
 *.local
 
-# Ignore subdirectory that was moved to root
-/js-challenge-lab
+# Ignore subdirectory that was moved to root - catch all variations
+/js-challenge-lab/
+js-challenge-lab/
+**/js-challenge-lab/
+
+# Backup files and temporary files
+*.backup
+*.bak
+*.tmp
+*.temp
+
+# Demo and test files
+*demo*.html
+*test*.html
+admin.html
+deploy-*.ps1
+deploy-*.bat
+deploy-log.txt
 
 # Social media and documentation files
 SOCIAL_MEDIA_POST.md
