@@ -33,6 +33,8 @@ deploy-log.txt
 
 # Social media and documentation files
 SOCIAL_MEDIA_POST.md
+todo.md
+TODO.md
 
 # Editor directories and files
 .vscode/*
