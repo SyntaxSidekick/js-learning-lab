@@ -9,7 +9,7 @@ export class QuestionDatabase {
   async loadQuestions() {
     try {
       // In production, this would be a fetch request to your JSON file
-      const response = await fetch('./src/data/questionsDatabase.json');
+      const response = await fetch('/questionsDatabase.json');
       this.data = await response.json();
       this.isLoaded = true;
       return this.data;
@@ -85,6 +85,11 @@ export class QuestionDatabase {
   // Get database metadata
   getMetadata() {
     return this.data?.meta || {};
+  }
+
+  // Get total number of questions
+  getTotalQuestions() {
+    return this.getAllQuestions().length;
   }
 
   // Search questions

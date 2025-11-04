@@ -243,7 +243,7 @@ function App() {
       try {
         setIsLoading(true)
         const db = new QuestionDatabase()
-        await db.load()
+        await db.loadQuestions()
         setQuestionDatabase(db)
         
         // Load questions for the active topic and shuffle them
@@ -504,6 +504,10 @@ function App() {
 
   // Generate step-by-step code breakdown
   const generateCodeBreakdown = (code) => {
+    if (!code || typeof code !== 'string') {
+      return [];
+    }
+    
     const lines = code.trim().split('\n')
     const breakdown = []
     const variables = new Map() // Track variable states
@@ -682,6 +686,160 @@ function App() {
     // Default explanation
     return `📋 Executes: ${trimmed}`
   }
+
+  // Get topic explanation and examples
+  const getTopicInfo = (topicId) => {
+    const topicInfo = {
+      variables: {
+        title: "JavaScript Variables", 
+        description: "Variables in JavaScript are containers that store data values. You can think of them as labeled boxes that hold information you want to use later in your program.",
+        keyPoints: [
+          "Variables are declared using 'let', 'const', or 'var'",
+          "'let' allows reassignment, 'const' does not", 
+          "Variable names should be descriptive and follow camelCase",
+          "Variables can store different data types"
+        ],
+        example: `// Declaring variables
+let userName = "Alice";
+const age = 25;
+let isStudent = true;
+
+// Using variables
+console.log("Hello, " + userName);
+console.log("Age: " + age);`,
+        expectedOutput: `Hello, Alice
+Age: 25`,
+        explanation: "In this example, we declare three variables with different data types: a string for the name, a number for age, and a boolean for student status."
+      },
+      arrays: {
+        title: "JavaScript Arrays",
+        description: "Arrays are ordered lists that can store multiple values in a single variable. Each value has an index (position) starting from 0.",
+        keyPoints: [
+          "Arrays are created using square brackets []",
+          "Elements are accessed using index numbers [0], [1], [2]...",
+          "Arrays have many built-in methods like push(), pop(), map()",
+          "Arrays can store different data types"
+        ],
+        example: `// Creating an array
+let fruits = ["apple", "banana", "orange"];
+
+// Accessing elements  
+console.log(fruits[0]); // "apple"
+console.log(fruits.length); // 3
+
+// Adding elements
+fruits.push("grape");
+console.log(fruits); // ["apple", "banana", "orange", "grape"]`,
+        expectedOutput: `apple
+3
+["apple", "banana", "orange", "grape"]`,
+        explanation: "Arrays use zero-based indexing, meaning the first element is at index 0. The length property tells us how many elements are in the array."
+      },
+      functions: {
+        title: "JavaScript Functions",
+        description: "Functions are reusable blocks of code that perform specific tasks. They help organize code and avoid repetition.",
+        keyPoints: [
+          "Functions are declared using the 'function' keyword or arrow syntax",
+          "Functions can accept parameters (inputs) and return values (outputs)",
+          "Functions create their own scope for variables",
+          "Functions should have descriptive names that explain what they do"
+        ],
+        example: `// Function declaration
+function greetUser(name) {
+    return "Hello, " + name + "!";
+}
+
+// Arrow function
+const addNumbers = (a, b) => {
+    return a + b;
+};
+
+// Using functions
+console.log(greetUser("Bob")); // "Hello, Bob!"
+console.log(addNumbers(5, 3)); // 8`,
+        expectedOutput: `Hello, Bob!
+8`,
+        explanation: "Functions encapsulate code that can be called multiple times with different inputs, making your code more organized and reusable."
+      },
+      objects: {
+        title: "JavaScript Objects", 
+        description: "Objects are collections of key-value pairs that represent real-world entities. They group related data and functions together.",
+        keyPoints: [
+          "Objects are created using curly braces {}",
+          "Properties are accessed using dot notation (obj.property) or brackets (obj['property'])",
+          "Objects can contain various data types including other objects and functions",
+          "Objects are reference types, not primitive types"
+        ],
+        example: `// Creating an object
+let person = {
+    name: "Sarah",
+    age: 30,
+    city: "New York",
+    greet: function() {
+        return "Hi, I'm " + this.name;
+    }
+};
+
+// Accessing properties
+console.log(person.name); // "Sarah"
+console.log(person.greet()); // "Hi, I'm Sarah"
+
+// Adding new properties
+person.email = "sarah@email.com";`,
+        expectedOutput: `Sarah
+Hi, I'm Sarah`,
+        explanation: "Objects allow us to group related information together. The 'this' keyword refers to the object itself when used inside object methods."
+      },
+      loops: {
+        title: "JavaScript Loops",
+        description: "Loops allow you to execute code repeatedly until a certain condition is met. They're essential for processing collections of data.",
+        keyPoints: [
+          "for loops are great for iterating a specific number of times",
+          "while loops continue until a condition becomes false", 
+          "for...of loops iterate over arrays and other iterables",
+          "for...in loops iterate over object properties"
+        ],
+        example: `// For loop
+for (let i = 0; i < 5; i++) {
+    console.log("Count: " + i);
+}
+
+// For...of loop with array
+let colors = ["red", "green", "blue"];
+for (let color of colors) {
+    console.log("Color: " + color);
+}
+
+// While loop
+let count = 0;
+while (count < 3) {
+    console.log("While count: " + count);
+    count++;
+}`,
+        expectedOutput: `Count: 0
+Count: 1
+Count: 2
+Count: 3
+Count: 4
+Color: red
+Color: green
+Color: blue
+While count: 0
+While count: 1
+While count: 2`,
+        explanation: "Different types of loops serve different purposes. Choose the loop type that best fits your specific use case."
+      }
+    };
+
+    return topicInfo[topicId] || {
+      title: "JavaScript Concepts",
+      description: "Learn fundamental JavaScript programming concepts and techniques.",
+      keyPoints: ["Practice writing clean, readable code", "Understand core programming principles"],
+      example: "// Your JavaScript journey starts here!\nconsole.log('Hello, World!');",
+      expectedOutput: "Hello, World!",
+      explanation: "Keep practicing and you'll master these concepts!"
+    };
+  };
 
   // Reset question index when topic or difficulty changes
   useEffect(() => {
@@ -1560,16 +1718,106 @@ function App() {
                 {aboutTabValue === 0 && currentTopicQuestion && (
                   <Box sx={{ p: 2 }}>
                     <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'primary.main' }}>
-                      📋 Understanding This Question
+                      � About {topics.find(t => t.id === activeTopic)?.name || activeTopic}
                     </Typography>
                     
                     <Box sx={{ mb: 3 }}>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'text.secondary' }}>
-                        🎯 What You Need to Do:
-                      </Typography>
-                      <Typography variant="body2" sx={{ mb: 2, lineHeight: 1.6 }}>
-                        {enhanceTextWithKeywords(normalizedQuestion?.question || '')}
-                      </Typography>
+                      {(() => {
+                        const topicInfo = getTopicInfo(activeTopic);
+                        return (
+                          <>
+                            <Typography variant="body1" sx={{ mb: 2, lineHeight: 1.6 }}>
+                              {topicInfo.description}
+                            </Typography>
+                            
+                            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 2, color: 'text.secondary' }}>
+                              💡 Key Concepts:
+                            </Typography>
+                            {topicInfo.keyPoints.map((point, index) => (
+                              <Box key={index} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mb: 1 }}>
+                                <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 'bold' }}>
+                                  •
+                                </Typography>
+                                <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
+                                  {point}
+                                </Typography>
+                              </Box>
+                            ))}
+                          </>
+                        );
+                      })()}
+                    </Box>
+
+                    <Box sx={{ mb: 3 }}>
+                      {(() => {
+                        const topicInfo = getTopicInfo(activeTopic);
+                        return (
+                          <>
+                            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'text.secondary' }}>
+                              💻 Example Code:
+                            </Typography>
+                            <Typography variant="body2" sx={{ mb: 2 }}>
+                              Here's a practical example demonstrating {topics.find(t => t.id === activeTopic)?.name || activeTopic} concepts:
+                            </Typography>
+                            <Paper sx={{ 
+                              p: 1.5, 
+                              backgroundColor: '#272822',
+                              borderColor: '#49483e',
+                              border: '1px solid #49483e',
+                              mb: 2
+                            }}>
+                              <Typography 
+                                component="pre" 
+                                variant="body2" 
+                                sx={{ 
+                                  color: '#f8f8f2',
+                                  fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                                  margin: 0,
+                                  fontSize: '0.9rem',
+                                  lineHeight: 1.4,
+                                  whiteSpace: 'pre-wrap'
+                                }}
+                              >
+                                {topicInfo.example}
+                              </Typography>
+                            </Paper>
+                            <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.5, fontStyle: 'italic' }}>
+                              {topicInfo.explanation}
+                            </Typography>
+                            
+                            {/* Expected Output Section */}
+                            <Box sx={{ mt: 3 }}>
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'text.secondary' }}>
+                                ✅ Expected Output:
+                              </Typography>
+                              <Typography variant="body2" sx={{ mb: 2 }}>
+                                When you run this code, it produces:
+                              </Typography>
+                              <Paper sx={{ 
+                                p: 1.5, 
+                                backgroundColor: '#1e1e1e',
+                                borderColor: '#4CAF50',
+                                border: '1px solid #4CAF50'
+                              }}>
+                                <Typography 
+                                  component="pre" 
+                                  variant="body2" 
+                                  sx={{ 
+                                    color: '#4CAF50',
+                                    fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                                    margin: 0,
+                                    fontSize: '0.9rem',
+                                    lineHeight: 1.4,
+                                    whiteSpace: 'pre-wrap'
+                                  }}
+                                >
+                                  {topicInfo.expectedOutput}
+                                </Typography>
+                              </Paper>
+                            </Box>
+                          </>
+                        );
+                      })()}
                     </Box>
 
                     {currentTopicQuestion.starterCode && (
@@ -1640,33 +1888,7 @@ function App() {
                       </Box>
                     )}
 
-                    <Box sx={{ mb: 3 }}>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'text.secondary' }}>
-                        🎯 Expected Output:
-                      </Typography>
-                      <Typography variant="body2" sx={{ mb: 2 }}>
-                        When you run this code, it should produce the following result:
-                      </Typography>
-                      <Paper sx={{ 
-                        p: 1.5, 
-                        backgroundColor: '#272822',
-                        borderColor: '#a6e22e',
-                        border: '1px solid #a6e22e'
-                      }}>
-                        <Typography 
-                          component="pre" 
-                          variant="body2" 
-                          sx={{ 
-                            color: '#a6e22e',
-                            fontFamily: 'Monaco, Consolas, "Courier New", monospace',
-                            margin: 0,
-                            fontSize: '0.9rem'
-                          }}
-                        >
-                          {currentTopicQuestion.expectedOutput}
-                        </Typography>
-                      </Paper>
-                    </Box>
+
 
                     {currentTopicQuestion.hint && (
                       <Box sx={{ mb: 3 }}>
@@ -1705,23 +1927,66 @@ function App() {
                 {aboutTabValue === 1 && currentTopicQuestion && (
                   <Box sx={{ p: 2 }}>
                     <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'primary.main' }}>
-                      💡 Step-by-Step Solution
+                      � How to Solve This Question
                     </Typography>
                     
                     <Box sx={{ mb: 3 }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'text.secondary' }}>
-                        🎯 What to Look For:
+                        📋 What You Need to Do:
+                      </Typography>
+                      <Typography variant="body2" sx={{ mb: 2, lineHeight: 1.6 }}>
+                        {enhanceTextWithKeywords(normalizedQuestion?.question || '')}
+                      </Typography>
+                    </Box>
+
+                    {currentTopicQuestion.starterCode && (
+                      <Box sx={{ mb: 3 }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'text.secondary' }}>
+                          💻 Question Code:
+                        </Typography>
+                        <Typography variant="body2" sx={{ mb: 2 }}>
+                          The code below is what you need to analyze. Read through it carefully and predict what will happen when it runs.
+                        </Typography>
+                        <Paper sx={{ 
+                          p: 1.5, 
+                          backgroundColor: '#272822',
+                          borderColor: '#49483e',
+                          border: '1px solid #49483e',
+                          mb: 2
+                        }}>
+                          <Typography 
+                            component="pre" 
+                            variant="body2" 
+                            sx={{ 
+                              color: '#f8f8f2',
+                              fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                              margin: 0,
+                              fontSize: '0.9rem',
+                              lineHeight: 1.4
+                            }}
+                          >
+                            {currentTopicQuestion.starterCode}
+                          </Typography>
+                        </Paper>
+                      </Box>
+                    )}
+                    
+
+                    
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, color: 'text.secondary' }}>
+                        💡 What to Look For:
                       </Typography>
                       <Typography variant="body2" sx={{ mb: 2, fontStyle: 'italic' }}>
-                        {currentTopicQuestion.hint}
+                        {currentTopicQuestion.hint || 'Look at the code structure and try to understand what each part does.'}
                       </Typography>
                     </Box>
 
                     <Box sx={{ mb: 3 }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 2, color: 'text.secondary' }}>
-                        � Code Breakdown:
+                        🔍 Code Breakdown:
                       </Typography>
-                      {generateCodeBreakdown(currentTopicQuestion.starterCode).map((step, index) => (
+                      {(currentTopicQuestion.starterCode || currentTopicQuestion.code) && generateCodeBreakdown(currentTopicQuestion.starterCode || currentTopicQuestion.code).map((step, index) => (
                         <Box key={index} sx={{ mb: 2, p: 2, backgroundColor: 'grey.50', borderRadius: 1 }}>
                           <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
                             <Typography variant="caption" sx={{ 
@@ -1764,6 +2029,13 @@ function App() {
                           </Box>
                         </Box>
                       ))}
+                      {!(currentTopicQuestion.starterCode || currentTopicQuestion.code) && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, p: 2, backgroundColor: 'grey.50', borderRadius: 1 }}>
+                          <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
+                            No starter code available for this question.
+                          </Typography>
+                        </Box>
+                      )}
                     </Box>
 
                     <Box sx={{ mb: 3 }}>
@@ -1796,7 +2068,7 @@ function App() {
                             fontWeight: 600
                           }}
                         >
-                          {currentTopicQuestion.expectedOutput}
+                          {normalizedQuestion?.expectedOutput || currentTopicQuestion.expectedOutput}
                         </Typography>
                       </Paper>
                     </Box>
