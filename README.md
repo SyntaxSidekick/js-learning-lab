@@ -1,4 +1,4 @@
-# JS Challenge Lab 🚀
+# JS Learning Lab 🚀
 
 **Tagline:** *Sharpen your JavaScript skills — one random question at a time.*
 
