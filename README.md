@@ -4,7 +4,7 @@
 
 A modern, interactive web application for practicing JavaScript concepts through randomized coding challenges. Perfect for developers looking to improve their JavaScript knowledge with hands-on practice.
 
-![JS Challenge Lab Screenshot](https://via.placeholder.com/800x400/3b82f6/ffffff?text=JS+Challenge+Lab)
+<img width="1917" height="915" alt="js-learning-lab" src="https://github.com/user-attachments/assets/0dfe90e9-fc87-449e-9240-06529831889b" />
 
 ## ✨ Features
 
