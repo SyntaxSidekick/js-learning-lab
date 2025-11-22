@@ -1,0 +1,1104 @@
+{
+  "meta": {
+    "version": "2.0",
+    "lastUpdated": "2025-11-04",
+    "totalQuestions": 150,
+    "categories": 15,
+    "difficultyLevels": ["beginner", "intermediate", "advanced"],
+    "questionTypes": ["output", "concept", "debugging", "completion"]
+  },
+  "categories": [
+    {
+      "id": "arrays",
+      "name": "Arrays & Methods",
+      "description": "Array manipulation, methods, and advanced techniques",
+      "color": "#FF6B6B"
+    },
+    {
+      "id": "variables",
+      "name": "Variables & Data Types",
+      "description": "Variable declarations, hoisting, scoping, and data types",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "functions",
+      "name": "Functions",
+      "description": "Function declarations, expressions, arrow functions, and scope",
+      "color": "#2196F3"
+    },
+    {
+      "id": "objects",
+      "name": "Objects & Properties",
+      "description": "Object creation, manipulation, and property access",
+      "color": "#FF9800"
+    },
+    {
+      "id": "closures",
+      "name": "Closures",
+      "description": "Closure concepts, lexical scoping, and practical applications",
+      "color": "#9C27B0"
+    },
+    {
+      "id": "promises",
+      "name": "Promises & Async",
+      "description": "Asynchronous JavaScript, promises, async/await, and event loop",
+      "color": "#F44336"
+    },
+    {
+      "id": "prototypes",
+      "name": "Prototypes & Classes",
+      "description": "Prototype chain, inheritance, and ES6 classes",
+      "color": "#607D8B"
+    },
+    {
+      "id": "dom",
+      "name": "DOM Manipulation",
+      "description": "Document Object Model, events, and browser APIs",
+      "color": "#795548"
+    },
+    {
+      "id": "es6",
+      "name": "ES6+ Features",
+      "description": "Modern JavaScript features, destructuring, modules, and more",
+      "color": "#3F51B5"
+    },
+    {
+      "id": "operators",
+      "name": "Operators & Expressions",
+      "description": "Arithmetic, logical, comparison, and special operators",
+      "color": "#009688"
+    },
+    {
+      "id": "loops",
+      "name": "Loops & Iteration",
+      "description": "For loops, while loops, forEach, map, filter, and reduce",
+      "color": "#CDDC39"
+    },
+    {
+      "id": "strings",
+      "name": "Strings & RegEx",
+      "description": "String manipulation, template literals, and regular expressions",
+      "color": "#E91E63"
+    },
+    {
+      "id": "error-handling",
+      "name": "Error Handling",
+      "description": "Try-catch, error types, and debugging techniques",
+      "color": "#FF5722"
+    },
+    {
+      "id": "performance",
+      "name": "Performance & Optimization",
+      "description": "Memory management, performance optimization, and best practices",
+      "color": "#8BC34A"
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced Concepts",
+      "description": "Complex patterns, design principles, and advanced JavaScript features",
+      "color": "#673AB7"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "category": "arrays",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Array Push Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\nconst result = arr.push(4);\nconsole.log(result);\nconsole.log(arr);",
+      "options": [
+        "4, [1, 2, 3, 4]",
+        "[1, 2, 3, 4], 4",
+        "4, [1, 2, 3]",
+        "[1, 2, 3, 4], [1, 2, 3, 4]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Array.push() returns the new length of the array after adding elements. The original array is modified.",
+      "hints": ["push() returns the new length", "push() modifies the original array"],
+      "tags": ["arrays", "push", "methods"],
+      "relatedConcepts": ["Array methods", "Mutating methods", "Return values"]
+    },
+    {
+      "id": 2,
+      "category": "arrays",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Array Pop Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\nconst result = arr.pop();\nconsole.log(result);\nconsole.log(arr);",
+      "options": [
+        "3, [1, 2]",
+        "[1, 2], 3",
+        "3, [1, 2, 3]",
+        "2, [1, 2]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Array.pop() removes and returns the last element from an array. The original array is modified.",
+      "hints": ["pop() removes the last element", "pop() returns the removed element"],
+      "tags": ["arrays", "pop", "methods"],
+      "relatedConcepts": ["Array methods", "Mutating methods", "Return values"]
+    },
+    {
+      "id": 3,
+      "category": "arrays",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Map Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\nconst result = arr.map(x => x * 2);\nconsole.log(result);\nconsole.log(arr);",
+      "options": [
+        "[2, 4, 6], [1, 2, 3]",
+        "[1, 2, 3], [2, 4, 6]",
+        "[2, 4, 6], [2, 4, 6]",
+        "[1, 2, 3], [1, 2, 3]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Array.map() creates a new array with transformed elements. The original array remains unchanged.",
+      "hints": ["map() creates a new array", "map() doesn't modify the original array"],
+      "tags": ["arrays", "map", "methods", "functional"],
+      "relatedConcepts": ["Array methods", "Non-mutating methods", "Functional programming"]
+    },
+    {
+      "id": 4,
+      "category": "arrays",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Filter Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3, 4, 5];\nconst result = arr.filter(x => x % 2 === 0);\nconsole.log(result);",
+      "options": [
+        "[2, 4]",
+        "[1, 3, 5]",
+        "[1, 2, 3, 4, 5]",
+        "[]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Array.filter() creates a new array with elements that pass the test implemented by the provided function.",
+      "hints": ["filter() creates a new array", "Only elements that return true are included"],
+      "tags": ["arrays", "filter", "methods", "functional"],
+      "relatedConcepts": ["Array methods", "Filtering", "Functional programming"]
+    },
+    {
+      "id": 5,
+      "category": "arrays",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Array Reduce Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3, 4];\nconst result = arr.reduce((acc, curr) => acc + curr, 0);\nconsole.log(result);",
+      "options": [
+        "10",
+        "0",
+        "[1, 2, 3, 4]",
+        "4"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Array.reduce() executes a reducer function on each element, resulting in a single output value. Here it sums all elements.",
+      "hints": ["reduce() combines all elements into one value", "Initial value is 0"],
+      "tags": ["arrays", "reduce", "methods", "functional"],
+      "relatedConcepts": ["Array methods", "Accumulation", "Functional programming"]
+    },
+    {
+      "id": 6,
+      "category": "arrays",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Method Chaining",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3, 4, 5];\nconst result = arr\n  .filter(x => x > 2)\n  .map(x => x * 2)\n  .reduce((sum, x) => sum + x, 0);\nconsole.log(result);",
+      "options": [
+        "24",
+        "30",
+        "12",
+        "15"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Method chaining: filter([3,4,5]) → map([6,8,10]) → reduce(6+8+10=24)",
+      "hints": ["Chain executes left to right", "filter first, then map, then reduce"],
+      "tags": ["arrays", "chaining", "methods", "functional"],
+      "relatedConcepts": ["Method chaining", "Functional programming", "Data transformation"]
+    },
+    {
+      "id": 7,
+      "category": "arrays",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Array Length Property",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\narr[5] = 6;\nconsole.log(arr.length);\nconsole.log(arr);",
+      "options": [
+        "6, [1, 2, 3, undefined, undefined, 6]",
+        "4, [1, 2, 3, 6]",
+        "3, [1, 2, 3]",
+        "5, [1, 2, 3, undefined, 6]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Setting an element at index 5 creates empty slots (sparse array). Length becomes 6.",
+      "hints": ["Arrays can have empty slots", "Length is based on highest index + 1"],
+      "tags": ["arrays", "length", "sparse"],
+      "relatedConcepts": ["Array length", "Sparse arrays", "Array indexing"]
+    },
+    {
+      "id": 8,
+      "category": "arrays",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Splice Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3, 4, 5];\nconst result = arr.splice(2, 2, 'a', 'b');\nconsole.log(result);\nconsole.log(arr);",
+      "options": [
+        "[3, 4], [1, 2, 'a', 'b', 5]",
+        "['a', 'b'], [1, 2, 3, 4, 5]",
+        "[1, 2, 5], [3, 4, 'a', 'b']",
+        "[3, 4], [1, 2, 3, 4, 'a', 'b', 5]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "splice(start, deleteCount, ...items) removes elements and adds new ones. Returns removed elements.",
+      "hints": ["splice() modifies the original array", "Returns array of removed elements"],
+      "tags": ["arrays", "splice", "methods", "mutating"],
+      "relatedConcepts": ["Array methods", "Mutating methods", "Array modification"]
+    },
+    {
+      "id": 9,
+      "category": "arrays",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Slice Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3, 4, 5];\nconst result = arr.slice(1, 4);\nconsole.log(result);\nconsole.log(arr);",
+      "options": [
+        "[2, 3, 4], [1, 2, 3, 4, 5]",
+        "[1, 2, 3], [4, 5]",
+        "[2, 3, 4], [1, 5]",
+        "[1, 2, 3, 4], [5]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "slice(start, end) returns a shallow copy of a portion. Original array is unchanged. End index is exclusive.",
+      "hints": ["slice() doesn't modify original array", "End index is not included"],
+      "tags": ["arrays", "slice", "methods", "non-mutating"],
+      "relatedConcepts": ["Array methods", "Non-mutating methods", "Array copying"]
+    },
+    {
+      "id": 10,
+      "category": "arrays",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Array Find and FindIndex",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [{id: 1, name: 'Alice'}, {id: 2, name: 'Bob'}];\nconst found = arr.find(item => item.id === 2);\nconst index = arr.findIndex(item => item.id === 2);\nconsole.log(found?.name);\nconsole.log(index);",
+      "options": [
+        "Bob, 1",
+        "undefined, -1",
+        "Bob, 2",
+        "{id: 2, name: 'Bob'}, 1"
+      ],
+      "correctAnswer": 0,
+      "explanation": "find() returns the first element that matches. findIndex() returns its index. Bob is at index 1.",
+      "hints": ["find() returns the element itself", "findIndex() returns the index position"],
+      "tags": ["arrays", "find", "findIndex", "objects"],
+      "relatedConcepts": ["Array search methods", "Object arrays", "Optional chaining"]
+    },
+    {
+      "id": 11,
+      "category": "variables",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Variable Hoisting with Var",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(x);\nvar x = 5;\nconsole.log(x);",
+      "options": [
+        "undefined, 5",
+        "5, 5",
+        "ReferenceError",
+        "undefined, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Due to hoisting, 'var x' is moved to the top but not its assignment. So x is undefined initially, then 5 after assignment.",
+      "hints": ["Think about how var declarations are hoisted", "Assignment happens where you write it"],
+      "tags": ["hoisting", "var", "undefined"],
+      "relatedConcepts": ["Variable declarations", "Hoisting", "Temporal dead zone"]
+    },
+    {
+      "id": 12,
+      "category": "variables",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Let vs Var in Loops",
+      "question": "What will be the output of the following code?",
+      "code": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}\n\nfor (let j = 0; j < 3; j++) {\n  setTimeout(() => console.log(j), 0);\n}",
+      "options": [
+        "3, 3, 3, 0, 1, 2",
+        "0, 1, 2, 0, 1, 2",
+        "0, 1, 2, 3, 3, 3",
+        "3, 3, 3, 3, 3, 3"
+      ],
+      "correctAnswer": 0,
+      "explanation": "With 'var', there's one variable shared across iterations. With 'let', each iteration gets its own variable due to block scoping.",
+      "hints": ["Consider the difference between var and let scoping", "Think about when setTimeout callbacks execute"],
+      "tags": ["var", "let", "setTimeout", "scoping"],
+      "relatedConcepts": ["Block scoping", "Function scoping", "Event loop"]
+    },
+    {
+      "id": 13,
+      "category": "variables",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Temporal Dead Zone",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(x);\nlet x = 5;",
+      "options": [
+        "undefined",
+        "5",
+        "ReferenceError",
+        "null"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Variables declared with let/const are hoisted but cannot be accessed before declaration due to temporal dead zone.",
+      "hints": ["let/const have different hoisting behavior than var", "Temporal dead zone prevents access before declaration"],
+      "tags": ["temporal-dead-zone", "let", "hoisting"],
+      "relatedConcepts": ["Temporal dead zone", "Block scoping", "Hoisting"]
+    },
+    {
+      "id": 14,
+      "category": "variables",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Const Object Mutation",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = {a: 1, b: 2};\nobj.a = 10;\nobj.c = 3;\nconsole.log(obj);",
+      "options": [
+        "{a: 10, b: 2, c: 3}",
+        "{a: 1, b: 2}",
+        "TypeError",
+        "{a: 1, b: 2, c: 3}"
+      ],
+      "correctAnswer": 0,
+      "explanation": "const prevents reassignment of the variable, but object properties can still be modified.",
+      "hints": ["const prevents variable reassignment", "Object properties can still be changed"],
+      "tags": ["const", "objects", "mutation"],
+      "relatedConcepts": ["const keyword", "Object mutability", "Reference vs value"]
+    },
+    {
+      "id": 15,
+      "category": "variables",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Block Scope with Let",
+      "question": "What will be the output of the following code?",
+      "code": "let x = 1;\nif (true) {\n  let x = 2;\n  console.log(x);\n}\nconsole.log(x);",
+      "options": [
+        "2, 1",
+        "1, 1",
+        "2, 2",
+        "1, 2"
+      ],
+      "correctAnswer": 0,
+      "explanation": "let has block scope. The inner x is a different variable that shadows the outer x within the block.",
+      "hints": ["let has block scope", "Inner variable shadows outer variable"],
+      "tags": ["let", "block-scope", "shadowing"],
+      "relatedConcepts": ["Block scoping", "Variable shadowing", "Lexical scoping"]
+    },
+    {
+      "id": 16,
+      "category": "functions",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Function Declaration vs Expression",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(foo());\nconsole.log(bar());\n\nfunction foo() { return 'foo'; }\nvar bar = function() { return 'bar'; };",
+      "options": [
+        "foo, TypeError",
+        "undefined, bar",
+        "ReferenceError, ReferenceError",
+        "foo, bar"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Function declarations are hoisted completely. Function expressions are not hoisted (bar is undefined when called).",
+      "hints": ["Function declarations are fully hoisted", "Function expressions follow var hoisting rules"],
+      "tags": ["functions", "hoisting", "declarations"],
+      "relatedConcepts": ["Function hoisting", "Function declarations", "Function expressions"]
+    },
+    {
+      "id": 17,
+      "category": "functions",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Arrow Function This Binding",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = {\n  name: 'Alice',\n  greet: () => {\n    console.log('Hello ' + this.name);\n  }\n};\nobj.greet();",
+      "options": [
+        "Hello Alice",
+        "Hello undefined",
+        "Hello ",
+        "TypeError"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Arrow functions don't have their own 'this'. They inherit 'this' from the lexical scope (global in this case).",
+      "hints": ["Arrow functions don't bind their own 'this'", "this.name is undefined in global scope"],
+      "tags": ["arrow-functions", "this", "binding"],
+      "relatedConcepts": ["Arrow functions", "This binding", "Lexical scoping"]
+    },
+    {
+      "id": 18,
+      "category": "functions",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Regular Function This Binding",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = {\n  name: 'Alice',\n  greet: function() {\n    console.log('Hello ' + this.name);\n  }\n};\nobj.greet();",
+      "options": [
+        "Hello Alice",
+        "Hello undefined",
+        "Hello ",
+        "TypeError"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Regular functions bind 'this' to the object that calls them. Here, 'this' refers to obj.",
+      "hints": ["Regular functions bind 'this' to the calling object", "obj.greet() means 'this' is obj"],
+      "tags": ["functions", "this", "binding"],
+      "relatedConcepts": ["Function this binding", "Method calls", "Object methods"]
+    },
+    {
+      "id": 19,
+      "category": "functions",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Higher Order Functions",
+      "question": "What will be the output of the following code?",
+      "code": "function multiplier(factor) {\n  return function(number) {\n    return number * factor;\n  };\n}\n\nconst double = multiplier(2);\nconst triple = multiplier(3);\nconsole.log(double(5));\nconsole.log(triple(4));",
+      "options": [
+        "10, 12",
+        "7, 7",
+        "5, 4",
+        "2, 3"
+      ],
+      "correctAnswer": 0,
+      "explanation": "multiplier returns a function that remembers the factor. double multiplies by 2, triple by 3.",
+      "hints": ["multiplier returns a function", "Each returned function remembers its factor"],
+      "tags": ["higher-order", "closures", "functions"],
+      "relatedConcepts": ["Higher-order functions", "Closures", "Function factories"]
+    },
+    {
+      "id": 20,
+      "category": "functions",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Function Parameters and Arguments",
+      "question": "What will be the output of the following code?",
+      "code": "function test(a, b = 2, c) {\n  console.log(a, b, c);\n}\n\ntest(1);\ntest(1, undefined, 3);",
+      "options": [
+        "1 2 undefined, 1 2 3",
+        "1 undefined undefined, 1 undefined 3",
+        "1 2 undefined, 1 undefined 3",
+        "undefined 2 undefined, 1 2 3"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Default parameters apply when argument is undefined or missing. b defaults to 2 in both cases.",
+      "hints": ["Default parameters work when argument is undefined", "Missing arguments are undefined"],
+      "tags": ["functions", "parameters", "defaults"],
+      "relatedConcepts": ["Default parameters", "Function arguments", "undefined values"]
+    },
+    {
+      "id": 21,
+      "category": "objects",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "Object Property Access",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { name: 'Alice', age: 30 };\nconsole.log(obj.name);\nconsole.log(obj['age']);\nconsole.log(obj.height);",
+      "options": [
+        "Alice, 30, undefined",
+        "Alice, age, undefined",
+        "name, 30, null",
+        "Alice, 30, null"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Properties can be accessed with dot notation or bracket notation. Non-existent properties return undefined.",
+      "hints": ["Both dot and bracket notation work", "Missing properties return undefined"],
+      "tags": ["objects", "properties", "access"],
+      "relatedConcepts": ["Object property access", "Dot notation", "Bracket notation"]
+    },
+    {
+      "id": 22,
+      "category": "objects",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Object Property Shorthand",
+      "question": "What will be the output of the following code?",
+      "code": "const name = 'Alice';\nconst age = 30;\nconst obj = { name, age, greet() { return 'Hello'; } };\nconsole.log(obj.name);\nconsole.log(obj.greet());",
+      "options": [
+        "Alice, Hello",
+        "name, greet()",
+        "undefined, undefined",
+        "Alice, function"
+      ],
+      "correctAnswer": 0,
+      "explanation": "ES6 property shorthand allows { name } instead of { name: name }. Method shorthand works too.",
+      "hints": ["Property shorthand uses variable name as key", "Method shorthand is valid ES6 syntax"],
+      "tags": ["objects", "es6", "shorthand"],
+      "relatedConcepts": ["Object shorthand", "ES6 features", "Method definitions"]
+    },
+    {
+      "id": 23,
+      "category": "objects",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Object Destructuring",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { x: 1, y: 2, z: 3 };\nconst { x, y: newY, w = 10 } = obj;\nconsole.log(x);\nconsole.log(newY);\nconsole.log(w);",
+      "options": [
+        "1, 2, 10",
+        "x, y, w",
+        "1, undefined, 10",
+        "undefined, 2, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Destructuring extracts x (1), renames y to newY (2), and w gets default value (10) since it doesn't exist.",
+      "hints": ["Destructuring can rename variables", "Default values work for missing properties"],
+      "tags": ["objects", "destructuring", "es6"],
+      "relatedConcepts": ["Object destructuring", "Variable renaming", "Default values"]
+    },
+    {
+      "id": 24,
+      "category": "objects",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Object.keys and Object.values",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { a: 1, b: 2, c: 3 };\nconst keys = Object.keys(obj);\nconst values = Object.values(obj);\nconsole.log(keys.length);\nconsole.log(values.reduce((sum, v) => sum + v, 0));",
+      "options": [
+        "3, 6",
+        "3, 3",
+        "1, 6",
+        "undefined, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Object.keys() returns array of property names (length 3). Object.values() returns [1,2,3], sum is 6.",
+      "hints": ["Object.keys() returns array of property names", "Object.values() returns array of property values"],
+      "tags": ["objects", "keys", "values"],
+      "relatedConcepts": ["Object.keys", "Object.values", "Object iteration"]
+    },
+    {
+      "id": 25,
+      "category": "objects",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Object Reference vs Copy",
+      "question": "What will be the output of the following code?",
+      "code": "const obj1 = { a: 1 };\nconst obj2 = obj1;\nconst obj3 = { ...obj1 };\nobj1.a = 2;\nconsole.log(obj2.a);\nconsole.log(obj3.a);",
+      "options": [
+        "2, 1",
+        "1, 1",
+        "2, 2",
+        "1, 2"
+      ],
+      "correctAnswer": 0,
+      "explanation": "obj2 references the same object as obj1. obj3 is a shallow copy, so it's not affected by changes to obj1.",
+      "hints": ["Assignment creates a reference", "Spread operator creates a shallow copy"],
+      "tags": ["objects", "reference", "copying"],
+      "relatedConcepts": ["Object references", "Object copying", "Spread operator"]
+    },
+    {
+      "id": 26,
+      "category": "closures",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Basic Closure",
+      "question": "What will be the output of the following code?",
+      "code": "function outer() {\n  let count = 0;\n  return function() {\n    count++;\n    return count;\n  };\n}\n\nconst counter = outer();\nconsole.log(counter());\nconsole.log(counter());",
+      "options": [
+        "1, 2",
+        "0, 1",
+        "1, 1",
+        "undefined, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The inner function has access to the outer function's count variable even after outer() has finished executing.",
+      "hints": ["Inner function can access outer variables", "count persists between calls"],
+      "tags": ["closures", "scope", "functions"],
+      "relatedConcepts": ["Closures", "Lexical scoping", "Function scope"]
+    },
+    {
+      "id": 27,
+      "category": "closures",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Closure in Loop",
+      "question": "What will be the output of the following code?",
+      "code": "const functions = [];\nfor (let i = 0; i < 3; i++) {\n  functions.push(() => i);\n}\nconsole.log(functions[0]());\nconsole.log(functions[1]());\nconsole.log(functions[2]());",
+      "options": [
+        "0, 1, 2",
+        "3, 3, 3",
+        "undefined, undefined, undefined",
+        "0, 0, 0"
+      ],
+      "correctAnswer": 0,
+      "explanation": "With let, each iteration creates a new binding for i, so each function captures its own value.",
+      "hints": ["let creates a new binding each iteration", "Each function captures its own i value"],
+      "tags": ["closures", "loops", "let"],
+      "relatedConcepts": ["Closures", "Block scoping", "Loop variables"]
+    },
+    {
+      "id": 28,
+      "category": "closures",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Module Pattern with Closure",
+      "question": "What will be the output of the following code?",
+      "code": "const module = (function() {\n  let private = 0;\n  return {\n    increment() { private++; },\n    get() { return private; }\n  };\n})();\n\nmodule.increment();\nmodule.increment();\nconsole.log(module.get());\nconsole.log(module.private);",
+      "options": [
+        "2, undefined",
+        "0, 0",
+        "2, 2",
+        "undefined, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "IIFE creates a closure with private variable. Only exposed methods can access it, direct access returns undefined.",
+      "hints": ["IIFE creates immediate closure", "private variable is not directly accessible"],
+      "tags": ["closures", "modules", "iife"],
+      "relatedConcepts": ["Module pattern", "IIFE", "Data privacy"]
+    },
+    {
+      "id": 29,
+      "category": "loops",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "For Loop Basic",
+      "question": "What will be the output of the following code?",
+      "code": "for (let i = 0; i < 3; i++) {\n  console.log(i);\n}",
+      "options": [
+        "0, 1, 2",
+        "1, 2, 3",
+        "0, 1, 2, 3",
+        "1, 2"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Loop starts at 0, continues while i < 3, incrementing i each time. Outputs 0, 1, 2.",
+      "hints": ["Loop condition is i < 3", "i starts at 0 and increments"],
+      "tags": ["loops", "for", "iteration"],
+      "relatedConcepts": ["For loops", "Loop conditions", "Iteration"]
+    },
+    {
+      "id": 30,
+      "category": "loops",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "ForEach vs Map",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\nconst result1 = arr.forEach(x => x * 2);\nconst result2 = arr.map(x => x * 2);\nconsole.log(result1);\nconsole.log(result2);",
+      "options": [
+        "undefined, [2, 4, 6]",
+        "[2, 4, 6], [2, 4, 6]",
+        "[1, 2, 3], [2, 4, 6]",
+        "undefined, undefined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "forEach() returns undefined and is used for side effects. map() returns a new array with transformed values.",
+      "hints": ["forEach returns undefined", "map returns a new array"],
+      "tags": ["loops", "forEach", "map"],
+      "relatedConcepts": ["Array iteration", "forEach vs map", "Return values"]
+    },
+    {
+      "id": 31,
+      "category": "strings",
+      "difficulty": "beginner",
+      "type": "output",
+      "title": "String Template Literals",
+      "question": "What will be the output of the following code?",
+      "code": "const name = 'Alice';\nconst age = 30;\nconst message = `Hello, my name is ${name} and I am ${age} years old.`;\nconsole.log(message);",
+      "options": [
+        "Hello, my name is Alice and I am 30 years old.",
+        "Hello, my name is ${name} and I am ${age} years old.",
+        "Hello, my name is name and I am age years old.",
+        "SyntaxError"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Template literals use backticks and ${} for variable interpolation.",
+      "hints": ["Template literals use backticks", "${} interpolates variables"],
+      "tags": ["strings", "template-literals", "interpolation"],
+      "relatedConcepts": ["Template literals", "String interpolation", "ES6 features"]
+    },
+    {
+      "id": 32,
+      "category": "strings",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "String Methods",
+      "question": "What will be the output of the following code?",
+      "code": "const str = 'Hello World';\nconsole.log(str.toLowerCase());\nconsole.log(str.slice(0, 5));\nconsole.log(str.includes('World'));",
+      "options": [
+        "hello world, Hello, true",
+        "HELLO WORLD, Hello, false",
+        "hello world, Hell, true",
+        "Hello World, Hello, true"
+      ],
+      "correctAnswer": 0,
+      "explanation": "toLowerCase() converts to lowercase, slice(0,5) extracts 'Hello', includes() checks if substring exists.",
+      "hints": ["toLowerCase affects all characters", "slice(0,5) extracts first 5 characters"],
+      "tags": ["strings", "methods", "manipulation"],
+      "relatedConcepts": ["String methods", "String manipulation", "String searching"]
+    },
+    {
+      "id": 33,
+      "category": "operators",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Comparison Operators",
+      "question": "What will be the output of the following code?",
+      "code": "console.log(5 == '5');\nconsole.log(5 === '5');\nconsole.log(0 == false);\nconsole.log(0 === false);",
+      "options": [
+        "true, false, true, false",
+        "false, false, false, false",
+        "true, true, true, true",
+        "false, true, false, true"
+      ],
+      "correctAnswer": 0,
+      "explanation": "== performs type coercion, === doesn't. 5 == '5' (coerced), 5 !== '5' (different types), 0 == false (coerced), 0 !== false (different types).",
+      "hints": ["== allows type coercion", "=== requires same type and value"],
+      "tags": ["operators", "comparison", "coercion"],
+      "relatedConcepts": ["Comparison operators", "Type coercion", "Equality"]
+    },
+    {
+      "id": 34,
+      "category": "operators",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Logical Operators Short Circuit",
+      "question": "What will be the output of the following code?",
+      "code": "const result1 = false && console.log('A');\nconst result2 = true || console.log('B');\nconst result3 = null ?? 'default';\nconsole.log(result3);",
+      "options": [
+        "default",
+        "A, B, default",
+        "undefined, undefined, default",
+        "false, true, default"
+      ],
+      "correctAnswer": 0,
+      "explanation": "&& short-circuits on false (doesn't execute console.log). || short-circuits on true. ?? returns 'default' for null.",
+      "hints": ["&& stops on first falsy value", "|| stops on first truthy value", "?? handles null/undefined"],
+      "tags": ["operators", "logical", "short-circuit"],
+      "relatedConcepts": ["Logical operators", "Short-circuit evaluation", "Nullish coalescing"]
+    },
+    {
+      "id": 35,
+      "category": "es6",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Spread Operator with Arrays",
+      "question": "What will be the output of the following code?",
+      "code": "const arr1 = [1, 2];\nconst arr2 = [3, 4];\nconst combined = [...arr1, ...arr2, 5];\nconsole.log(combined);",
+      "options": [
+        "[1, 2, 3, 4, 5]",
+        "[[1, 2], [3, 4], 5]",
+        "[1, 2, [3, 4], 5]",
+        "SyntaxError"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Spread operator (...) expands arrays into individual elements. Creates a new array with all elements.",
+      "hints": ["Spread operator expands array elements", "Creates a new flat array"],
+      "tags": ["es6", "spread", "arrays"],
+      "relatedConcepts": ["Spread operator", "Array spreading", "ES6 features"]
+    },
+    {
+      "id": 36,
+      "category": "es6",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Rest Parameters",
+      "question": "What will be the output of the following code?",
+      "code": "function sum(first, ...rest) {\n  console.log(first);\n  console.log(rest);\n}\n\nsum(1, 2, 3, 4, 5);",
+      "options": [
+        "1, [2, 3, 4, 5]",
+        "[1], [2, 3, 4, 5]",
+        "1, 2, 3, 4, 5",
+        "undefined, [1, 2, 3, 4, 5]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Rest parameters (...rest) collect remaining arguments into an array. first gets 1, rest gets [2,3,4,5].",
+      "hints": ["Rest parameters collect remaining arguments", "First parameter gets first argument"],
+      "tags": ["es6", "rest", "parameters"],
+      "relatedConcepts": ["Rest parameters", "Function parameters", "ES6 features"]
+    },
+    {
+      "id": 37,
+      "category": "promises",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Promise Basic Usage",
+      "question": "What will be the output of the following code?",
+      "code": "const promise = Promise.resolve('Success');\npromise.then(result => console.log(result));\nconsole.log('Immediate');",
+      "options": [
+        "Immediate, Success",
+        "Success, Immediate",
+        "Immediate",
+        "Success"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Synchronous code runs first ('Immediate'), then promise callback runs asynchronously ('Success').",
+      "hints": ["Synchronous code runs before async callbacks", "Promise.then is asynchronous"],
+      "tags": ["promises", "async", "order"],
+      "relatedConcepts": ["Promises", "Event loop", "Asynchronous execution"]
+    },
+    {
+      "id": 38,
+      "category": "error-handling",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Try Catch Finally",
+      "question": "What will be the output of the following code?",
+      "code": "try {\n  console.log('Try');\n  throw new Error('Oops');\n  console.log('After throw');\n} catch (e) {\n  console.log('Catch');\n} finally {\n  console.log('Finally');\n}",
+      "options": [
+        "Try, Catch, Finally",
+        "Try, After throw, Catch, Finally",
+        "Try, Finally",
+        "Catch, Finally"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Try executes until throw, then catch handles the error, finally always executes. Code after throw is skipped.",
+      "hints": ["throw stops execution in try block", "finally always runs"],
+      "tags": ["error-handling", "try-catch", "finally"],
+      "relatedConcepts": ["Error handling", "Try-catch-finally", "Exception handling"]
+    },
+    {
+      "id": 39,
+      "category": "advanced",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Event Loop and Microtasks",
+      "question": "What will be the output of the following code?",
+      "code": "console.log('1');\nsetTimeout(() => console.log('2'), 0);\nPromise.resolve().then(() => console.log('3'));\nconsole.log('4');",
+      "options": [
+        "1, 4, 3, 2",
+        "1, 2, 3, 4",
+        "1, 3, 4, 2",
+        "1, 4, 2, 3"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Synchronous code runs first (1, 4), then microtasks (Promise - 3), then macrotasks (setTimeout - 2).",
+      "hints": ["Synchronous code runs first", "Microtasks have higher priority than macrotasks"],
+      "tags": ["advanced", "event-loop", "microtasks"],
+      "relatedConcepts": ["Event loop", "Microtasks", "Macrotasks"]
+    },
+    {
+      "id": 40,
+      "category": "advanced",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Proxy Object",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { name: 'Alice' };\nconst proxy = new Proxy(obj, {\n  get(target, prop) {\n    return prop in target ? target[prop] : 'Not found';\n  }\n});\nconsole.log(proxy.name);\nconsole.log(proxy.age);",
+      "options": [
+        "Alice, Not found",
+        "Alice, undefined",
+        "Not found, Not found",
+        "Alice, Alice"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Proxy intercepts property access. name exists so returns 'Alice', age doesn't exist so returns 'Not found'.",
+      "hints": ["Proxy intercepts property access", "get handler defines custom behavior"],
+      "tags": ["advanced", "proxy", "metaprogramming"],
+      "relatedConcepts": ["Proxy objects", "Metaprogramming", "Property access"]
+    },
+    {
+      "id": 41,
+      "category": "arrays",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Sort Method",
+      "question": "What will be the output of the following code?",
+      "code": "const numbers = [10, 5, 100, 2, 1000];\nnumbers.sort();\nconsole.log(numbers);",
+      "options": [
+        "[10, 100, 1000, 2, 5]",
+        "[2, 5, 10, 100, 1000]",
+        "[1000, 100, 10, 5, 2]",
+        "[10, 5, 100, 2, 1000]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Array.sort() converts elements to strings and sorts lexicographically by default. '10' comes before '2' as strings.",
+      "hints": ["sort() converts to strings by default", "Lexicographic order: '10' < '2'"],
+      "tags": ["arrays", "sort", "strings"],
+      "relatedConcepts": ["Array sorting", "String comparison", "Lexicographic order"]
+    },
+    {
+      "id": 42,
+      "category": "arrays",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Array Sort with Compare Function",
+      "question": "What will be the output of the following code?",
+      "code": "const numbers = [10, 5, 100, 2, 1000];\nnumbers.sort((a, b) => a - b);\nconsole.log(numbers);",
+      "options": [
+        "[2, 5, 10, 100, 1000]",
+        "[10, 100, 1000, 2, 5]",
+        "[1000, 100, 10, 5, 2]",
+        "[10, 5, 100, 2, 1000]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Compare function (a, b) => a - b sorts numbers in ascending order. Negative result means a < b.",
+      "hints": ["Compare function controls sort order", "a - b gives ascending numeric sort"],
+      "tags": ["arrays", "sort", "comparison"],
+      "relatedConcepts": ["Array sorting", "Compare functions", "Numeric sorting"]
+    },
+    {
+      "id": 43,
+      "category": "arrays",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Array Includes vs IndexOf",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3, NaN];\nconsole.log(arr.includes(NaN));\nconsole.log(arr.indexOf(NaN));",
+      "options": [
+        "true, -1",
+        "false, -1",
+        "true, 3",
+        "false, 3"
+      ],
+      "correctAnswer": 0,
+      "explanation": "includes() can find NaN correctly, but indexOf() cannot find NaN and returns -1.",
+      "hints": ["includes() handles NaN correctly", "indexOf() cannot find NaN"],
+      "tags": ["arrays", "includes", "indexOf", "NaN"],
+      "relatedConcepts": ["Array search methods", "NaN comparison", "SameValueZero"]
+    },
+    {
+      "id": 44,
+      "category": "arrays",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Array Flat Method",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, [2, [3, [4, 5]]], 6];\nconst result1 = arr.flat();\nconst result2 = arr.flat(2);\nconsole.log(result1.length);\nconsole.log(result2.length);",
+      "options": [
+        "4, 5",
+        "3, 6",
+        "6, 6",
+        "4, 6"
+      ],
+      "correctAnswer": 0,
+      "explanation": "flat() flattens one level: [1, 2, [3, [4, 5]], 6] (4 elements). flat(2) flattens two levels: [1, 2, 3, [4, 5], 6] (5 elements).",
+      "hints": ["flat() flattens one level by default", "flat(2) flattens two levels"],
+      "tags": ["arrays", "flat", "nested"],
+      "relatedConcepts": ["Array flattening", "Nested arrays", "ES2019 features"]
+    },
+    {
+      "id": 45,
+      "category": "variables",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Variable Hoisting Edge Case",
+      "question": "What will be the output of the following code?",
+      "code": "var x = 1;\nfunction test() {\n  console.log(x);\n  var x = 2;\n  console.log(x);\n}\ntest();",
+      "options": [
+        "undefined, 2",
+        "1, 2",
+        "undefined, undefined",
+        "1, 1"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Local var x is hoisted to function top, shadowing global x. First console.log sees undefined hoisted variable.",
+      "hints": ["Local var declaration shadows global variable", "Hoisting creates undefined local variable"],
+      "tags": ["variables", "hoisting", "shadowing"],
+      "relatedConcepts": ["Variable hoisting", "Function scope", "Variable shadowing"]
+    },
+    {
+      "id": 46,
+      "category": "variables",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Const Array Mutation",
+      "question": "What will be the output of the following code?",
+      "code": "const arr = [1, 2, 3];\narr.push(4);\narr[0] = 10;\nconsole.log(arr);",
+      "options": [
+        "[10, 2, 3, 4]",
+        "[1, 2, 3]",
+        "TypeError",
+        "[1, 2, 3, 4]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "const prevents reassignment of the variable, but array contents can be modified.",
+      "hints": ["const prevents variable reassignment", "Array contents can still be changed"],
+      "tags": ["const", "arrays", "mutation"],
+      "relatedConcepts": ["const keyword", "Array mutability", "Reference vs value"]
+    },
+    {
+      "id": 47,
+      "category": "functions",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Function Call Apply Bind",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { name: 'Alice' };\nfunction greet(greeting) {\n  return greeting + ' ' + this.name;\n}\n\nconst result1 = greet.call(obj, 'Hello');\nconst result2 = greet.apply(obj, ['Hi']);\nconsole.log(result1);\nconsole.log(result2);",
+      "options": [
+        "Hello Alice, Hi Alice",
+        "Hello undefined, Hi undefined",
+        "Hello, Hi",
+        "Alice Hello, Alice Hi"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Both call() and apply() set 'this' to obj. call() takes individual arguments, apply() takes an array.",
+      "hints": ["call() and apply() set the 'this' context", "call() uses individual args, apply() uses array"],
+      "tags": ["functions", "call", "apply", "this"],
+      "relatedConcepts": ["Function call", "Function apply", "This binding"]
+    },
+    {
+      "id": 48,
+      "category": "functions",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Function Bind Method",
+      "question": "What will be the output of the following code?",
+      "code": "const obj = { name: 'Alice' };\nfunction greet() {\n  return 'Hello ' + this.name;\n}\n\nconst boundGreet = greet.bind(obj);\nconsole.log(boundGreet());",
+      "options": [
+        "Hello Alice",
+        "Hello undefined",
+        "Hello",
+        "TypeError"
+      ],
+      "correctAnswer": 0,
+      "explanation": "bind() creates a new function with 'this' permanently set to obj. When called, 'this' refers to obj.",
+      "hints": ["bind() creates a new function with fixed 'this'", "Bound function remembers its context"],
+      "tags": ["functions", "bind", "this"],
+      "relatedConcepts": ["Function bind", "This binding", "Bound functions"]
+    },
+    {
+      "id": 49,
+      "category": "objects",
+      "difficulty": "advanced",
+      "type": "output",
+      "title": "Object Freeze vs Seal",
+      "question": "What will be the output of the following code?",
+      "code": "const obj1 = { a: 1 };\nObject.freeze(obj1);\nobj1.a = 2;\n\nconst obj2 = { b: 1 };\nObject.seal(obj2);\nobj2.b = 2;\n\nconsole.log(obj1.a);\nconsole.log(obj2.b);",
+      "options": [
+        "1, 2",
+        "2, 2",
+        "1, 1",
+        "2, 1"
+      ],
+      "correctAnswer": 0,
+      "explanation": "freeze() prevents all modifications. seal() allows modification of existing properties but prevents adding/deleting.",
+      "hints": ["freeze() prevents all changes", "seal() allows modifying existing properties"],
+      "tags": ["objects", "freeze", "seal"],
+      "relatedConcepts": ["Object freeze", "Object seal", "Object immutability"]
+    },
+    {
+      "id": 50,
+      "category": "objects",
+      "difficulty": "intermediate",
+      "type": "output",
+      "title": "Object Computed Properties",
+      "question": "What will be the output of the following code?",
+      "code": "const key = 'dynamic';\nconst obj = {\n  static: 'value1',\n  [key]: 'value2',\n  ['prop_' + 3]: 'value3'\n};\nconsole.log(obj.dynamic);\nconsole.log(obj.prop_3);",
+      "options": [
+        "value2, value3",
+        "undefined, undefined",
+        "dynamic, prop_3",
+        "value1, value1"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Computed property names use [] to evaluate expressions as property keys. [key] becomes 'dynamic'.",
+      "hints": ["[] allows computed property names", "Expressions are evaluated as property keys"],
+      "tags": ["objects", "computed", "properties"],
+      "relatedConcepts": ["Computed properties", "Dynamic property names", "ES6 features"]
+    }
+  ]
+}
