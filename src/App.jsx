@@ -54,7 +54,9 @@ import {
   Terminal,
   MenuBook,
   Shuffle,
-  Menu
+  Menu,
+  GitHub,
+  OpenInNew
 } from '@mui/icons-material'
 
 import { questions } from './data/questions'
@@ -467,7 +469,7 @@ function App() {
       const mockConsole = {
         log: (...args) => {
           consoleOutput.push(args.map(arg => 
-            typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+            typeof arg === 'object' ? JSON.stringify(arg, null, 0).replace(/,/g, ', ') : String(arg)
           ).join(' '))
         }
       }
@@ -1329,8 +1331,11 @@ While count: 2`,
       {/* Main Layout - Google Style */}
       <Box sx={{ 
         height: 'calc(100vh - 80px)', 
+        width: '100vw',
+        maxWidth: '100vw',
         display: 'flex',
         backgroundColor: darkMode ? '#202124' : '#ffffff',
+        overflow: 'hidden',
       }}>
         {/* Sidebar (Left full height) - Responsive */}
         <Paper 
@@ -1416,7 +1421,16 @@ While count: 2`,
         </Paper>
 
         {/* Main Content Area - Google Style */}
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ 
+          flex: 1, 
+          display: 'flex', 
+          flexDirection: 'column',
+          width: isMobile ? '100vw' : 'calc(100vw - 280px)',
+          maxWidth: isMobile ? '100vw' : 'calc(100vw - 280px)',
+          overflowX: 'hidden',
+          overflowY: 'auto',
+          minWidth: 0
+        }}>
           {/* Content (Top 60%) - Responsive */}
           <Box sx={{ 
             height: isMobile ? 'auto' : '60%', 
@@ -1424,12 +1438,17 @@ While count: 2`,
             flexDirection: isMobile ? 'column' : 'row',
             borderBottom: isMobile ? 0 : 1, 
             borderColor: darkMode ? '#3c4043' : '#e8eaed',
+            width: '100%',
+            maxWidth: '100%',
+            overflowX: 'hidden',
           }}>
             {/* Question (Left 50%) - Responsive */}
             <Paper 
               elevation={0}
               sx={{ 
                 width: isMobile ? '100%' : '50%',
+                maxWidth: isMobile ? '100%' : '50%',
+                minWidth: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: 0,
@@ -1518,9 +1537,15 @@ While count: 2`,
                 </Box>
               </Box>
               
-              <Box sx={{ flex: 1, p: 3, overflow: 'auto' }}>
+              <Box sx={{ flex: 1, p: isMobile ? 2 : 3, overflowY: 'auto', overflowX: 'hidden' }}>
                 {currentTopicQuestion && topicQuestions.length > 0 && (
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    gap: 3,
+                    maxWidth: '100%',
+                    minWidth: 0
+                  }}>
                     {/* Question Text */}
                     <Typography variant="h6" sx={{ 
                       fontWeight: 400, 
@@ -1540,7 +1565,8 @@ While count: 2`,
                         backgroundColor: '#272822',
                         borderColor: darkMode ? '#3c4043' : '#e8eaed',
                         fontFamily: 'monospace',
-                        overflow: 'hidden',
+                        overflowX: 'auto',
+                        overflowY: 'hidden',
                         borderRadius: '8px',
                         boxShadow: darkMode 
                           ? '0 1px 3px rgba(0,0,0,0.3)' 
@@ -1557,55 +1583,69 @@ While count: 2`,
                     </Paper>
 
                     {/* Multiple Choice Options */}
-                    <Box>
+                    <Box sx={{ 
+                      maxWidth: '100%',
+                      minWidth: 0
+                    }}>
                       <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
                         Choose the correct output:
                       </Typography>
                       
                       {/* 2x2 Grid Layout for Multiple Choice */}
-                      <RadioGroup
-                        value={selectedAnswer || ''}
-                        onChange={(e) => handleAnswerSelect(e.target.value)}
-                      >
-                        <Box sx={{ 
-                          display: 'grid', 
-                          gridTemplateColumns: '1fr 1fr', 
-                          gap: isMobile ? 2 : 1 
-                        }}>
-                          {getMultipleChoiceOptions(currentTopicQuestion).map((option) => (
-                            <FormControlLabel
-                              key={option.id}
-                              value={option.id}
-                              control={<Radio size={isMobile ? "medium" : "small"} />}
-                              label={
-                                <Typography variant="body2" sx={{ 
-                                  fontFamily: 'monospace', 
-                                  fontSize: isMobile ? '0.9rem' : '0.875rem'
-                                }}>
-                                  {option.id}. {option.text}
-                                </Typography>
-                              }
-                              sx={{ 
-                                margin: 0,
-                                p: isMobile ? 2 : 1,
-                                border: 1,
-                                borderRadius: isMobile ? 2 : 1,
-                                borderColor: selectedAnswer === option.id ? 'primary.main' : 'divider',
-                                backgroundColor: selectedAnswer === option.id ? 'primary.light' : 'transparent',
-                                minHeight: isMobile ? 56 : 'auto',
-                                '&:hover': {
-                                  borderColor: 'primary.main',
-                                  backgroundColor: 'primary.light'
-                                },
-                                transition: 'all 0.2s ease',
-                                '& .MuiFormControlLabel-label': {
-                                  fontSize: '0.875rem'
-                                }
+                      <Box sx={{ 
+                        display: 'grid', 
+                        gridTemplateColumns: '1fr 1fr', 
+                        gap: isMobile ? 0.5 : 1,
+                        width: '100%',
+                        maxWidth: '100%',
+                        boxSizing: 'border-box'
+                      }}>
+                        {getMultipleChoiceOptions(currentTopicQuestion).map((option) => (
+                          <Button
+                            key={option.id}
+                            onClick={() => handleAnswerSelect(option.id)}
+                            variant={selectedAnswer === option.id ? 'contained' : 'outlined'}
+                            sx={{ 
+                              p: isMobile ? 0.5 : 1,
+                              borderRadius: 1,
+                              minHeight: isMobile ? 36 : 44,
+                              maxWidth: '100%',
+                              width: '100%',
+                              justifyContent: 'flex-start',
+                              textAlign: 'left',
+                              textTransform: 'none',
+                              fontFamily: 'monospace',
+                              fontSize: isMobile ? '0.65rem' : '0.8rem',
+                              fontWeight: 400,
+                              lineHeight: 1.2,
+                              borderColor: selectedAnswer === option.id ? 'primary.main' : 'divider',
+                              backgroundColor: selectedAnswer === option.id ? 'primary.main' : 'transparent',
+                              color: selectedAnswer === option.id ? 'primary.contrastText' : 'text.primary',
+                              overflow: 'hidden',
+                              boxSizing: 'border-box',
+                              '&:hover': {
+                                borderColor: 'primary.main',
+                                backgroundColor: selectedAnswer === option.id ? 'primary.dark' : 'primary.light',
+                                color: selectedAnswer === option.id ? 'primary.contrastText' : 'primary.main'
+                              },
+                              transition: 'all 0.2s ease'
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                                fontSize: 'inherit',
+                                boxSizing: 'border-box'
                               }}
-                            />
-                          ))}
-                        </Box>
-                      </RadioGroup>
+                            >
+                              {option.id}. {option.text}
+                            </Box>
+                          </Button>
+                        ))}
+                      </Box>
                     </Box>
 
                     {/* Submit Button */}
@@ -1663,10 +1703,13 @@ While count: 2`,
               elevation={0}
               sx={{ 
                 width: isMobile ? '100%' : '50%',
+                maxWidth: isMobile ? '100%' : '50%',
+                minWidth: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: 0,
                 backgroundColor: darkMode ? '#292a2d' : '#ffffff',
+                overflowX: 'hidden',
               }}
             >
               <Box sx={{ 
@@ -1741,13 +1784,18 @@ While count: 2`,
           <Box sx={{ 
             height: isMobile ? 'auto' : '40%', 
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row'
+            flexDirection: isMobile ? 'column' : 'row',
+            width: '100%',
+            maxWidth: '100%',
+            overflowX: 'hidden',
           }}>
             {/* About Question (Left 50%) - Responsive */}
             <Paper 
               elevation={0}
               sx={{ 
                 width: isMobile ? '100%' : '50%',
+                maxWidth: isMobile ? '100%' : '50%',
+                minWidth: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: 0,
@@ -2446,6 +2494,202 @@ While count: 2`,
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      {/* Footer - Google Style */}
+      <Box
+        component="footer"
+        sx={{
+          mt: 'auto',
+          py: 3,
+          px: 4,
+          backgroundColor: darkMode ? '#171717' : '#f2f2f2',
+          borderTop: `1px solid ${darkMode ? '#3c4043' : '#dadce0'}`,
+          color: darkMode ? '#9aa0a6' : '#70757a',
+        }}
+      >
+        <Box sx={{
+          maxWidth: '1200px',
+          mx: 'auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 3
+        }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: darkMode ? '#e8eaed' : '#3c4043',
+                fontWeight: 400,
+                fontSize: '14px',
+                fontFamily: 'Google Sans, Roboto, sans-serif'
+              }}
+            >
+              © 2025 JS Learning Lab
+            </Typography>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: darkMode ? '#9aa0a6' : '#70757a',
+                fontSize: '13px',
+                fontFamily: 'Roboto, sans-serif'
+              }}
+            >
+              Made with ❤️ by{' '}
+              <Box
+                component="a"
+                href="https://riadkilani.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: darkMode ? '#aecbfa' : '#1a73e8',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                  '&:hover': {
+                    textDecoration: 'underline'
+                  }
+                }}
+              >
+                Riad Kilani
+              </Box>
+              {' '}@{'{'}Syntax{'}'}Sidekick for JavaScript Learners
+            </Typography>
+          </Box>
+          
+          <Box sx={{ 
+            display: 'flex', 
+            gap: 4, 
+            alignItems: 'center',
+            flexWrap: 'wrap'
+          }}>
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1,
+              px: 2,
+              py: 1,
+              backgroundColor: darkMode ? '#5f6368' : '#9aa0a6',
+              borderRadius: '20px',
+              color: '#ffffff'
+            }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  fontFamily: 'Google Sans, Roboto, sans-serif'
+                }}
+              >
+                100+ Questions
+              </Typography>
+            </Box>
+            
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1,
+              px: 2,
+              py: 1,
+              backgroundColor: darkMode ? '#5f6368' : '#9aa0a6',
+              borderRadius: '20px',
+              color: '#ffffff'
+            }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  fontFamily: 'Google Sans, Roboto, sans-serif'
+                }}
+              >
+                Learn by Doing
+              </Typography>
+            </Box>
+            
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1,
+              px: 2,
+              py: 1,
+              backgroundColor: darkMode ? '#5f6368' : '#9aa0a6',
+              borderRadius: '20px',
+              color: '#ffffff'
+            }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  fontFamily: 'Google Sans, Roboto, sans-serif'
+                }}
+              >
+                Interactive
+              </Typography>
+            </Box>
+            
+            <Box 
+              component="a"
+              href="https://github.com/SyntaxSidekick/js-learning-lab"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 1,
+                px: 2,
+                py: 1,
+                backgroundColor: darkMode ? '#ea4335' : '#ea4335',
+                borderRadius: '20px',
+                color: '#ffffff',
+                textDecoration: 'none',
+                transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                '&:hover': {
+                  backgroundColor: darkMode ? '#d33b2f' : '#d33b2f',
+                  transform: 'translateY(-1px)',
+                  boxShadow: '0 2px 8px rgba(234, 67, 53, 0.3)'
+                }
+              }}
+            >
+              <GitHub sx={{ fontSize: '14px' }} />
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  fontFamily: 'Google Sans, Roboto, sans-serif'
+                }}
+              >
+                Contribute
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        
+        {/* Google-style divider line */}
+        <Box sx={{ 
+          maxWidth: '1200px',
+          mx: 'auto',
+          mt: 2,
+          pt: 2,
+          borderTop: `1px solid ${darkMode ? '#3c4043' : '#dadce0'}`,
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              color: darkMode ? '#70757a' : '#70757a',
+              fontSize: '12px',
+              fontFamily: 'Roboto, sans-serif',
+              textAlign: 'center'
+            }}
+          >
+            Built with React • Material-UI • Powered by JavaScript
+          </Typography>
+        </Box>
+      </Box>
     </ThemeProvider>
   )
 }
